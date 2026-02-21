@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon Group — Coming Soon</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital@0;1&display=swap');
+
+  :root {
+    --bg: #0A1A1F;
+    --bg-secondary: #132830;
+    --bg-tertiary: #1E3A45;
+    --surface: #132830;
+    --glass: rgba(30,58,69,0.4);
+    --glass-highlight: rgba(255,255,255,0.15);
+    --text-primary: #E5F2F5;
+    --text-secondary: #A0C4CE;
+    --text-tertiary: #7A9AA8;
+    --brand-primary: #14B8A6;
+    --brand-light: #2DD4BF;
+    --brand-dark: #0D9488;
+    --accent: #FFB703;
+    --accent-light: #FFD166;
+    --blue: #00B4D8;
+    --border: #1E3A45;
+    --border-hover: #2A4F5E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Syne', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    cursor: crosshair;
+  }
+
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+
+  .vignette {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(10,26,31,0.7) 100%);
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    perspective: 800px;
+  }
+
+  .floaty {
+    pointer-events: auto;
+    text-align: center;
+    will-change: transform;
+    transform-style: preserve-3d;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.4s;
+  }
+
+  h1 {
+    font-size: clamp(3.2rem, 11vw, 10rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    background: linear-gradient(
+      135deg,
+      var(--text-primary) 0%,
+      var(--brand-light) 35%,
+      var(--accent) 70%,
+      var(--blue) 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeIn 1.2s ease forwards 0.6s, shimmer 8s ease-in-out infinite 1.8s;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(0.7rem, 1.4vw, 0.88rem);
+    color: var(--text-tertiary);
+    max-width: 460px;
+    margin: 0 auto 2.8rem;
+    line-height: 1.75;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.85s;
+  }
+
+
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-tertiary);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 1.5s;
+  }
+
+  .corner { position: fixed; z-index: 3; pointer-events: none; }
+  .corner--tl { top: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-top: 1px solid var(--brand-dark); border-left: 1px solid var(--brand-dark); }
+  .corner--br { bottom: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid var(--brand-dark); border-right: 1px solid var(--brand-dark); }
+  .corner--tr { top: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-top: 1px solid rgba(255,183,3,0.2); border-right: 1px solid rgba(255,183,3,0.2); }
+  .corner--bl { bottom: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid rgba(255,183,3,0.2); border-left: 1px solid rgba(255,183,3,0.2); }
+
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation: orbFade 2s ease forwards;
+  }
+  .glow-orb--teal {
+    width: 400px; height: 400px;
+    background: rgba(20,184,166,0.08);
+    top: 10%; left: 15%;
+    animation-delay: 0.2s;
+  }
+  .glow-orb--amber {
+    width: 300px; height: 300px;
+    background: rgba(255,183,3,0.05);
+    bottom: 15%; right: 10%;
+    animation-delay: 0.5s;
+  }
+  .glow-orb--blue {
+    width: 350px; height: 350px;
+    background: rgba(0,180,216,0.06);
+    top: 50%; left: 60%;
+    animation-delay: 0.8s;
+  }
+  @keyframes orbFade { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="glow-orb glow-orb--teal"></div>
+<div class="glow-orb glow-orb--amber"></div>
+<div class="glow-orb glow-orb--blue"></div>
+
+<div class="vignette"></div>
+
+<div class="corner corner--tl"></div>
+<div class="corner corner--br"></div>
+<div class="corner corner--tr"></div>
+<div class="corner corner--bl"></div>
+
+<div class="overlay">
+  <div class="floaty" id="floaty">
+    <div class="tag">✦ Horizon Group</div>
+    <h1>Coming<br>Soon</h1>
+    <p class="subtitle">We're building something worth the wait.<br>Stay tuned.</p>
+
+  </div>
+</div>
+
+<div class="footer">© 2026 Horizon Group — All rights reserved</div>
+
+<script>
+// ─── Three.js Particle Scene ───
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 50;
+
+// Colors from Caribbean Dark palette
+const COLORS = [
+  new THREE.Color(0x14B8A6),
+  new THREE.Color(0xFFB703),
+  new THREE.Color(0x00B4D8),
+  new THREE.Color(0xFF8B7B),
+  new THREE.Color(0x34D399),
+  new THREE.Color(0x818CF8),
+];
+
+// ── Particles ──
+const PARTICLE_COUNT = 1800;
+const geo = new THREE.BufferGeometry();
+const positions = new Float32Array(PARTICLE_COUNT * 3);
+const colors = new Float32Array(PARTICLE_COUNT * 3);
+const sizes = new Float32Array(PARTICLE_COUNT);
+const velocities = [];
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  const i3 = i * 3;
+  positions[i3]     = (Math.random() - 0.5) * 120;
+  positions[i3 + 1] = (Math.random() - 0.5) * 80;
+  positions[i3 + 2] = (Math.random() - 0.5) * 60;
+
+  const col = COLORS[Math.floor(Math.random() * COLORS.length)];
+  colors[i3]     = col.r;
+  colors[i3 + 1] = col.g;
+  colors[i3 + 2] = col.b;
+
+  sizes[i] = Math.random() * 2.5 + 0.5;
+
+  velocities.push({
+    x: (Math.random() - 0.5) * 0.015,
+    y: (Math.random() - 0.5) * 0.015,
+    z: (Math.random() - 0.5) * 0.01,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.3 + 0.1,
+  });
+}
+
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+const particleMat = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime: { value: 0 },
+    uMouse: { value: new THREE.Vector2(0, 0) },
+  },
+  vertexShader: `
+    attribute float size;
+    varying vec3 vColor;
+    varying float vAlpha;
+    uniform float uTime;
+    uniform vec2 uMouse;
+
+    void main() {
+      vColor = color;
+      vec3 pos = position;
+
+      pos.x += sin(uTime * 0.15 + position.y * 0.05) * 1.2;
+      pos.y += cos(uTime * 0.12 + position.x * 0.04) * 0.8;
+      pos.z += sin(uTime * 0.1 + position.z * 0.06) * 0.5;
+
+      vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+      vec2 screenPos = mvPos.xy / -mvPos.z * 30.0;
+      vec2 diff = screenPos - uMouse;
+      float dist = length(diff);
+      float push = smoothstep(15.0, 0.0, dist) * 4.0;
+      pos.xy += normalize(diff + vec2(0.001)) * push;
+
+      mvPos = modelViewMatrix * vec4(pos, 1.0);
+      float depth = smoothstep(-80.0, 10.0, mvPos.z);
+      vAlpha = depth * 0.7 + 0.1;
+
+      gl_PointSize = size * (200.0 / -mvPos.z) * (depth * 0.6 + 0.4);
+      gl_Position = projectionMatrix * mvPos;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vColor;
+    varying float vAlpha;
+
+    void main() {
+      float d = length(gl_PointCoord - 0.5);
+      float strength = 1.0 - smoothstep(0.0, 0.5, d);
+      strength = pow(strength, 1.5);
+      float glow = exp(-d * 4.0) * 0.5;
+      gl_FragColor = vec4(vColor, (strength + glow) * vAlpha);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  vertexColors: true,
+});
+
+const particles = new THREE.Points(geo, particleMat);
+scene.add(particles);
+
+// ── Connecting Lines ──
+const LINE_COUNT = 200;
+const lineGeo = new THREE.BufferGeometry();
+const linePositions = new Float32Array(LINE_COUNT * 6);
+const lineColors = new Float32Array(LINE_COUNT * 6);
+lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+lineGeo.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+
+const lineMat = new THREE.LineBasicMaterial({
+  vertexColors: true,
+  transparent: true,
+  opacity: 0.12,
+  blending: THREE.AdditiveBlending,
+});
+const lines = new THREE.LineSegments(lineGeo, lineMat);
+scene.add(lines);
+
+// ── Mouse tracking ──
+const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+const floatyMouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+document.addEventListener('mousemove', (e) => {
+  mouse.targetX = ((e.clientX / window.innerWidth) - 0.5) * 2;
+  mouse.targetY = -((e.clientY / window.innerHeight) - 0.5) * 2;
+  floatyMouse.targetX = (e.clientX / window.innerWidth - 0.5);
+  floatyMouse.targetY = (e.clientY / window.innerHeight - 0.5);
+});
+
+// ── Floaty text ──
+const floatyEl = document.getElementById('floaty');
+let floatyX = 0, floatyY = 0;
+let floatyRotX = 0, floatyRotY = 0;
+
+// ── Resize ──
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ── Animation loop ──
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+
+  mouse.x += (mouse.targetX - mouse.x) * 0.05;
+  mouse.y += (mouse.targetY - mouse.y) * 0.05;
+  particleMat.uniforms.uTime.value = t;
+  particleMat.uniforms.uMouse.value.set(mouse.x * 30, mouse.y * 20);
+
+  // Animate particles
+  const pos = geo.attributes.position.array;
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const i3 = i * 3;
+    const v = velocities[i];
+    pos[i3]     += v.x + Math.sin(t * v.speed + v.phase) * 0.008;
+    pos[i3 + 1] += v.y + Math.cos(t * v.speed + v.phase) * 0.006;
+    pos[i3 + 2] += v.z;
+
+    if (pos[i3] > 60) pos[i3] = -60;
+    if (pos[i3] < -60) pos[i3] = 60;
+    if (pos[i3+1] > 40) pos[i3+1] = -40;
+    if (pos[i3+1] < -40) pos[i3+1] = 40;
+    if (pos[i3+2] > 30) pos[i3+2] = -30;
+    if (pos[i3+2] < -30) pos[i3+2] = 30;
+  }
+  geo.attributes.position.needsUpdate = true;
+
+  // Update connecting lines
+  let lineIdx = 0;
+  const lp = lineGeo.attributes.position.array;
+  const lc = lineGeo.attributes.color.array;
+  const threshold = 12;
+  
+  for (let i = 0; i < PARTICLE_COUNT && lineIdx < LINE_COUNT; i += 5) {
+    for (let j = i + 5; j < PARTICLE_COUNT && lineIdx < LINE_COUNT; j += 5) {
+      const i3 = i * 3, j3 = j * 3;
+      const dx = pos[i3] - pos[j3];
+      const dy = pos[i3+1] - pos[j3+1];
+      const dz = pos[i3+2] - pos[j3+2];
+      const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+      
+      if (dist < threshold) {
+        const li = lineIdx * 6;
+        lp[li] = pos[i3]; lp[li+1] = pos[i3+1]; lp[li+2] = pos[i3+2];
+        lp[li+3] = pos[j3]; lp[li+4] = pos[j3+1]; lp[li+5] = pos[j3+2];
+
+        const alpha = 1 - dist / threshold;
+        const ci3 = i * 3;
+        lc[li] = colors[ci3]*alpha; lc[li+1] = colors[ci3+1]*alpha; lc[li+2] = colors[ci3+2]*alpha;
+        lc[li+3] = colors[ci3]*alpha; lc[li+4] = colors[ci3+1]*alpha; lc[li+5] = colors[ci3+2]*alpha;
+        lineIdx++;
+      }
+    }
+  }
+  for (let i = lineIdx * 6; i < LINE_COUNT * 6; i++) { lp[i] = 0; lc[i] = 0; }
+  lineGeo.attributes.position.needsUpdate = true;
+  lineGeo.attributes.color.needsUpdate = true;
+
+  // Camera sway
+  camera.position.x += (mouse.x * 3 - camera.position.x) * 0.02;
+  camera.position.y += (mouse.y * 2 - camera.position.y) * 0.02;
+  camera.lookAt(0, 0, 0);
+
+  // Slow rotation
+  particles.rotation.y = t * 0.02;
+  particles.rotation.x = Math.sin(t * 0.01) * 0.1;
+  lines.rotation.y = particles.rotation.y;
+  lines.rotation.x = particles.rotation.x;
+
+  // Floaty text - smooth follow with 3D tilt
+  floatyMouse.x += (floatyMouse.targetX - floatyMouse.x) * 0.04;
+  floatyMouse.y += (floatyMouse.targetY - floatyMouse.y) * 0.04;
+
+  const moveX = floatyMouse.x * 25;
+  const moveY = floatyMouse.y * 18;
+  const breathe = Math.sin(t * 0.8) * 4;
+
+  floatyX += (moveX - floatyX) * 0.06;
+  floatyY += (moveY + breathe - floatyY) * 0.06;
+  floatyRotX += (-floatyMouse.y * 4 - floatyRotX) * 0.04;
+  floatyRotY += (floatyMouse.x * 5 - floatyRotY) * 0.04;
+
+  floatyEl.style.transform = 
+    `translate(${floatyX}px, ${floatyY}px) rotateX(${floatyRotX}deg) rotateY(${floatyRotY}deg)`;
+
+  renderer.render(scene, camera);
+}
+
+animate();
+</script>
+</body>
+</html>
