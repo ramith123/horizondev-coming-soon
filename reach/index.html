@@ -473,16 +473,16 @@
     }
     .app-info { text-align: center; }
     .phone {
-      width: 200px;
-      height: 400px;
+      width: 240px;
+      height: 520px;
     }
-    .phone-shadow { width: 170px; }
+    .phone-shadow { width: 190px; }
   }
 
   @media (max-width: 480px) {
     .phone {
-      width: 170px;
-      height: 340px;
+      width: 200px;
+      height: 430px;
     }
     .platforms { gap: 0.8rem; flex-direction: column; align-items: center; }
     .platform-card { padding: 1rem 0.8rem; max-width: 100%; width: 100%; }
@@ -569,6 +569,18 @@ function selectPlatform(card) {
   document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
 }
+
+// ─── Auto-detect mobile OS ───
+(function() {
+  const ua = navigator.userAgent || navigator.platform || '';
+  let detected = null;
+  if (/android/i.test(ua)) detected = 'android';
+  else if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) detected = 'ios';
+  if (detected) {
+    const card = document.querySelector(`.platform-card[data-platform="${detected}"]`);
+    if (card) selectPlatform(card);
+  }
+})();
 
 let turnstileToken = null;
 
