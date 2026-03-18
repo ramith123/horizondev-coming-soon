@@ -180,10 +180,11 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 1rem 2.2rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
+    padding: 1.1rem 2.8rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
     color: var(--text-tertiary);
     background: transparent;
     border: 1.5px dashed var(--border-hover);
@@ -245,6 +246,19 @@
     animation-delay: 0.8s;
   }
   @keyframes orbFade { to { opacity: 1; } }
+
+  @media (max-width: 600px) {
+    .buttons {
+      flex-direction: column;
+      width: 100%;
+      padding: 0 2rem;
+    }
+    .btn-project,
+    .btn-coming-soon {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 </style>
 </head>
 <body>
@@ -274,7 +288,7 @@
         Reach <span class="arrow">&rarr;</span>
       </a>
       <div class="btn-coming-soon">
-        + coming soon
+        More Coming Soon
       </div>
     </div>
   </div>
