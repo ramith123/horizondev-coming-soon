@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon Group — Coming Soon</title>
+<title>Horizon Group — Mobile App Dev Studio</title>
+<meta name="description" content="Horizon Group is a dev studio building privacy-first mobile apps. Explore Reach and upcoming projects.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital@0;1&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=DM+Mono:ital@0;1&display=swap');
 
   :root {
     --bg: #0A1A1F;
@@ -33,7 +34,7 @@
   body {
     background: var(--bg);
     color: var(--text-primary);
-    font-family: 'Syne', sans-serif;
+    font-family: 'Inter', sans-serif;
     overflow: hidden;
     height: 100vh;
     width: 100vw;
@@ -76,22 +77,27 @@
     transform-style: preserve-3d;
   }
 
-  .tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.4em;
+  .top-brand {
+    position: fixed;
+    top: 2rem;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
+    color: var(--text-primary);
     opacity: 0;
-    animation: fadeIn 1.2s ease forwards 0.4s;
+    animation: fadeIn 1.2s ease forwards 0.3s;
   }
 
   h1 {
     font-size: clamp(3.2rem, 11vw, 10rem);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
     margin-bottom: 1.5rem;
     opacity: 0;
     background: linear-gradient(
@@ -124,7 +130,67 @@
     animation: fadeIn 1.2s ease forwards 0.85s;
   }
 
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 1.1s;
+  }
 
+  .btn-project {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.1rem 2.8rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    color: var(--bg);
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-light));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 0 30px rgba(20,184,166,0.35), 0 0 60px rgba(20,184,166,0.15);
+  }
+
+  .btn-project:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 0 40px rgba(20,184,166,0.5), 0 0 80px rgba(20,184,166,0.2);
+  }
+
+  .btn-project .arrow {
+    font-size: 1.3rem;
+    transition: transform 0.25s ease;
+  }
+
+  .btn-project:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  .btn-coming-soon {
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    background: transparent;
+    border: 1.5px dashed var(--border-hover);
+    border-radius: 50px;
+    cursor: default;
+    opacity: 0.5;
+  }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px); }
@@ -134,8 +200,8 @@
   .footer {
     position: fixed;
     bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
     z-index: 3;
     font-family: 'DM Mono', monospace;
     font-size: 0.6rem;
@@ -196,12 +262,21 @@
 <div class="corner corner--tr"></div>
 <div class="corner corner--bl"></div>
 
+<div class="top-brand">Horizon Group</div>
+
 <div class="overlay">
   <div class="floaty" id="floaty">
-    <div class="tag">✦ Horizon Group</div>
-    <h1>Coming<br>Soon</h1>
-    <p class="subtitle">We're building something worth the wait.<br>Stay tuned.</p>
+    <h1>Apps,<br>Crafted.</h1>
+    <p class="subtitle">A dev studio building privacy-first mobile apps.</p>
 
+    <div class="buttons">
+      <a href="/reach/" class="btn-project">
+        Reach <span class="arrow">&rarr;</span>
+      </a>
+      <div class="btn-coming-soon">
+        + coming soon
+      </div>
+    </div>
   </div>
 </div>
 

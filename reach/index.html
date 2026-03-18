@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reach — Privacy-First Wallet App | Horizon Group</title>
+<meta name="description" content="Reach is a privacy-first wallet app that makes tracking your money effortless. Join the waitlist for early access on Android and iOS.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:ital@0;1&display=swap');
+
+  :root {
+    --bg: #0A1A1F;
+    --bg-secondary: #132830;
+    --bg-tertiary: #1E3A45;
+    --surface: #132830;
+    --glass: rgba(30,58,69,0.4);
+    --glass-highlight: rgba(255,255,255,0.15);
+    --text-primary: #E5F2F5;
+    --text-secondary: #A0C4CE;
+    --text-tertiary: #7A9AA8;
+    --brand-primary: #14B8A6;
+    --brand-light: #2DD4BF;
+    --brand-dark: #0D9488;
+    --accent: #FFB703;
+    --accent-light: #FFD166;
+    --blue: #00B4D8;
+    --border: #1E3A45;
+    --border-hover: #2A4F5E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100vw;
+  }
+
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+
+  .vignette {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(10,26,31,0.7) 100%);
+  }
+
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation: orbFade 2s ease forwards;
+  }
+  .glow-orb--teal {
+    width: 400px; height: 400px;
+    background: rgba(20,184,166,0.08);
+    top: 10%; left: 15%;
+    animation-delay: 0.2s;
+  }
+  .glow-orb--amber {
+    width: 300px; height: 300px;
+    background: rgba(255,183,3,0.05);
+    bottom: 15%; right: 10%;
+    animation-delay: 0.5s;
+  }
+  @keyframes orbFade { to { opacity: 1; } }
+
+  /* Top brand */
+  .top-brand {
+    position: fixed;
+    top: 2rem;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.3s;
+  }
+
+  .top-brand a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .top-brand a:hover {
+    color: var(--brand-light);
+  }
+
+  /* Corner accents */
+  .corner { position: fixed; z-index: 3; pointer-events: none; }
+  .corner--tl { top: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-top: 1px solid var(--brand-dark); border-left: 1px solid var(--brand-dark); }
+  .corner--br { bottom: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid var(--brand-dark); border-right: 1px solid var(--brand-dark); }
+  .corner--tr { top: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-top: 1px solid rgba(255,183,3,0.2); border-right: 1px solid rgba(255,183,3,0.2); }
+  .corner--bl { bottom: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid rgba(255,183,3,0.2); border-left: 1px solid rgba(255,183,3,0.2); }
+
+  /* Main content — split layout */
+  .content {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: auto;
+    padding: 10rem 6vw 2rem;
+    gap: 6vw;
+  }
+
+  /* Left side: info only */
+  .left-col {
+    flex: 1;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* Waitlist section below hero */
+  .waitlist-section {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 2rem 4rem;
+    margin-top: 2rem;
+  }
+
+  /* Right side: phone */
+  .right-col {
+    flex-shrink: 0;
+    perspective: 1200px;
+    opacity: 0;
+    animation: floatIn 1.4s ease forwards 0.4s;
+  }
+
+  /* Phone mockup — 3D lifted from desk */
+  .phone {
+    width: 300px;
+    height: 650px;
+    border-radius: 36px;
+    border: 2px solid var(--border-hover);
+    background: var(--bg-secondary);
+    overflow: hidden;
+    position: relative;
+    transform: rotateY(-12deg) rotateX(5deg);
+    transform-style: preserve-3d;
+    box-shadow:
+      0 0 40px rgba(20,184,166,0.12),
+      0 40px 80px rgba(0,0,0,0.5),
+      0 15px 30px rgba(0,0,0,0.3),
+      inset 0 0 0 1px rgba(255,255,255,0.06);
+    animation: phoneFloat 5s ease-in-out infinite;
+  }
+
+  /* Shadow on the "desk" beneath the phone */
+  .phone-shadow {
+    width: 220px;
+    height: 30px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%);
+    margin: 1.2rem auto 0;
+    border-radius: 50%;
+    filter: blur(4px);
+    animation: shadowPulse 5s ease-in-out infinite;
+  }
+
+  .phone-notch {
+    width: 90px;
+    height: 24px;
+    background: var(--bg);
+    border-radius: 0 0 16px 16px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Left side edge */
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: -8px;
+    width: 8px;
+    background: linear-gradient(to left, #0f2229, #0a1a1f);
+    border-radius: 4px 0 0 4px;
+    transform: skewY(2deg);
+    z-index: -1;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    border-left: 1px solid rgba(255,255,255,0.03);
+  }
+
+  /* Bottom edge */
+  .phone::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: -8px;
+    height: 8px;
+    background: linear-gradient(to bottom, #0f2229, #0a1a1f);
+    border-radius: 0 0 4px 4px;
+    transform: skewX(-2deg);
+    z-index: -1;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .phone-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 34px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .phone-screen img.active {
+    opacity: 1;
+  }
+
+  @keyframes phoneFloat {
+    0%, 100% { transform: rotateY(-12deg) rotateX(5deg) translateY(0px); }
+    50% { transform: rotateY(-10deg) rotateX(3deg) translateY(-16px); }
+  }
+
+  @keyframes shadowPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(60px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* App info */
+  .app-info {
+    text-align: left;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.5s;
+  }
+
+  .app-name {
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-light) 60%, var(--accent) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 8s ease-in-out infinite 2s;
+  }
+
+  .app-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+  }
+
+  .app-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    line-height: 1.7;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Waitlist */
+  .waitlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .waitlist-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .waitlist-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+    margin-top: -0.5rem;
+  }
+
+  /* Platform cards */
+  .platforms {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .platform-card {
+    flex: 1;
+    max-width: 180px;
+    padding: 1.2rem 1rem;
+    border-radius: 16px;
+    border: 1.5px solid var(--border);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .platform-card:hover,
+  .platform-card.selected {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 20px rgba(20,184,166,0.15);
+  }
+
+  .platform-card.selected {
+    background: rgba(20,184,166,0.08);
+  }
+
+  .platform-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  .platform-counter span {
+    color: var(--brand-light);
+    font-weight: 600;
+  }
+
+  .platform-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .platform-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+  }
+
+  /* Email form */
+  .email-form {
+    display: flex;
+    width: 100%;
+    gap: 0;
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    transition: border-color 0.25s ease;
+  }
+
+  .email-form:focus-within {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 20px rgba(20,184,166,0.15);
+  }
+
+  .email-form input {
+    flex: 1;
+    padding: 0.9rem 1.4rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+  }
+
+  .email-form input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  .email-form button {
+    padding: 0.9rem 1.6rem;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-light));
+    border: none;
+    color: var(--bg);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .email-form button:hover {
+    opacity: 0.9;
+  }
+
+  .cf-turnstile {
+    margin-top: 0.5rem;
+  }
+
+  /* Footer */
+  .footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding-bottom: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-tertiary);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 1.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .content {
+      flex-direction: column-reverse;
+      padding: 6rem 2rem 2rem;
+      gap: 2.5rem;
+    }
+    .left-col {
+      align-items: center;
+      max-width: 100%;
+    }
+    .app-info { text-align: center; }
+    .phone {
+      width: 200px;
+      height: 400px;
+    }
+    .phone-shadow { width: 170px; }
+  }
+
+  @media (max-width: 480px) {
+    .phone {
+      width: 170px;
+      height: 340px;
+    }
+    .platforms { gap: 0.8rem; }
+    .platform-card { padding: 1rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="glow-orb glow-orb--teal"></div>
+<div class="glow-orb glow-orb--amber"></div>
+
+<div class="vignette"></div>
+
+<div class="corner corner--tl"></div>
+<div class="corner corner--br"></div>
+<div class="corner corner--tr"></div>
+<div class="corner corner--bl"></div>
+
+<div class="top-brand"><a href="/">Horizon Group</a></div>
+
+<div class="content">
+  <div class="left-col">
+    <div class="app-info">
+      <h1 class="app-name">Reach</h1>
+      <p class="app-tagline">Budgeting App</p>
+      <p class="app-desc">Privacy-first. Effortless to use.<br>Your money, your data.</p>
+    </div>
+
+  </div>
+
+  <div class="right-col">
+    <div class="phone">
+      <div class="phone-screen" id="phone-slideshow">
+        <img src="/public/reach-1.png" alt="Reach App - Home" class="active">
+        <img src="/public/reach-2.png" alt="Reach App - Details">
+      </div>
+    </div>
+    <div class="phone-shadow"></div>
+  </div>
+</div>
+
+<div class="waitlist-section">
+  <div class="waitlist">
+    <div class="waitlist-label">Join the waitlist</div>
+    <p class="waitlist-hint">Select your platform to reserve a spot</p>
+
+    <div class="platforms">
+      <div class="platform-card selected" data-platform="ios" onclick="selectPlatform(this)">
+        <div class="platform-icon">&#63743;</div>
+        <div class="platform-name">iOS</div>
+      </div>
+      <div class="platform-card" data-platform="android" onclick="selectPlatform(this)">
+        <div class="platform-icon">&#129302;</div>
+        <div class="platform-name">Android</div>
+      </div>
+    </div>
+
+    <form class="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">Join</button>
+    </form>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAACs4Xw0w0RftSzIt" data-theme="dark" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired"></div>
+  </div>
+</div>
+
+<div class="footer">&copy; 2026 Horizon Group &mdash; All rights reserved</div>
+
+<script>
+// ─── Phone slideshow ───
+(function() {
+  const imgs = document.querySelectorAll('#phone-slideshow img');
+  let current = 0;
+  setInterval(() => {
+    imgs[current].classList.remove('active');
+    current = (current + 1) % imgs.length;
+    imgs[current].classList.add('active');
+  }, 4000);
+})();
+
+// ─── Platform selection ───
+function selectPlatform(card) {
+  document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+
+let turnstileToken = null;
+
+function onTurnstileSuccess(token) {
+  turnstileToken = token;
+}
+
+function onTurnstileExpired() {
+  turnstileToken = null;
+}
+
+const WORKER_URL = 'https://waitlist.horizongroup.dev';
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  if (!turnstileToken) {
+    btn.textContent = 'Complete check';
+    setTimeout(() => { btn.textContent = 'Join'; }, 2000);
+    return;
+  }
+  btn.textContent = 'Joining...';
+  btn.disabled = true;
+  const email = e.target.querySelector('input').value;
+  const platform = document.querySelector('.platform-card.selected')?.dataset.platform || 'ios';
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, platform, token: turnstileToken }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      e.target.querySelector('input').value = '';
+      btn.textContent = 'Added!';
+    } else {
+      btn.textContent = data.error || 'Error';
+    }
+  } catch {
+    btn.textContent = 'Error';
+  }
+  setTimeout(() => { btn.textContent = 'Join'; btn.disabled = false; }, 2000);
+  turnstileToken = null;
+  if (window.turnstile) turnstile.reset();
+}
+
+// ─── Three.js Particle Scene (simplified) ───
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 50;
+
+const COLORS = [
+  new THREE.Color(0x14B8A6),
+  new THREE.Color(0xFFB703),
+  new THREE.Color(0x00B4D8),
+  new THREE.Color(0x34D399),
+];
+
+const PARTICLE_COUNT = 1000;
+const geo = new THREE.BufferGeometry();
+const positions = new Float32Array(PARTICLE_COUNT * 3);
+const colors = new Float32Array(PARTICLE_COUNT * 3);
+const sizes = new Float32Array(PARTICLE_COUNT);
+const velocities = [];
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  const i3 = i * 3;
+  positions[i3]     = (Math.random() - 0.5) * 120;
+  positions[i3 + 1] = (Math.random() - 0.5) * 80;
+  positions[i3 + 2] = (Math.random() - 0.5) * 60;
+  const col = COLORS[Math.floor(Math.random() * COLORS.length)];
+  colors[i3] = col.r; colors[i3+1] = col.g; colors[i3+2] = col.b;
+  sizes[i] = Math.random() * 2.5 + 0.5;
+  velocities.push({
+    x: (Math.random() - 0.5) * 0.012,
+    y: (Math.random() - 0.5) * 0.012,
+    z: (Math.random() - 0.5) * 0.008,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.3 + 0.1,
+  });
+}
+
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+const particleMat = new THREE.ShaderMaterial({
+  uniforms: { uTime: { value: 0 } },
+  vertexShader: `
+    attribute float size;
+    varying vec3 vColor;
+    varying float vAlpha;
+    uniform float uTime;
+    void main() {
+      vColor = color;
+      vec3 pos = position;
+      pos.x += sin(uTime * 0.15 + position.y * 0.05) * 1.2;
+      pos.y += cos(uTime * 0.12 + position.x * 0.04) * 0.8;
+      vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+      float depth = smoothstep(-80.0, 10.0, mvPos.z);
+      vAlpha = depth * 0.6 + 0.1;
+      gl_PointSize = size * (200.0 / -mvPos.z) * (depth * 0.6 + 0.4);
+      gl_Position = projectionMatrix * mvPos;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vColor;
+    varying float vAlpha;
+    void main() {
+      float d = length(gl_PointCoord - 0.5);
+      float strength = 1.0 - smoothstep(0.0, 0.5, d);
+      strength = pow(strength, 1.5);
+      float glow = exp(-d * 4.0) * 0.5;
+      gl_FragColor = vec4(vColor, (strength + glow) * vAlpha);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  vertexColors: true,
+});
+
+const particles = new THREE.Points(geo, particleMat);
+scene.add(particles);
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  particleMat.uniforms.uTime.value = t;
+  const pos = geo.attributes.position.array;
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const i3 = i * 3;
+    const v = velocities[i];
+    pos[i3] += v.x + Math.sin(t * v.speed + v.phase) * 0.006;
+    pos[i3+1] += v.y + Math.cos(t * v.speed + v.phase) * 0.005;
+    pos[i3+2] += v.z;
+    if (pos[i3] > 60) pos[i3] = -60;
+    if (pos[i3] < -60) pos[i3] = 60;
+    if (pos[i3+1] > 40) pos[i3+1] = -40;
+    if (pos[i3+1] < -40) pos[i3+1] = 40;
+    if (pos[i3+2] > 30) pos[i3+2] = -30;
+    if (pos[i3+2] < -30) pos[i3+2] = 30;
+  }
+  geo.attributes.position.needsUpdate = true;
+  particles.rotation.y = t * 0.015;
+  particles.rotation.x = Math.sin(t * 0.01) * 0.08;
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>
