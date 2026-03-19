@@ -302,10 +302,14 @@
     justify-content: center;
     transition: border-color 0.25s ease, transform 0.25s ease;
     padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
-  .theme-toggle:hover {
-    border-color: var(--brand-primary);
-    transform: scale(1.1);
+  @media (hover: hover) {
+    .theme-toggle:hover {
+      border-color: var(--brand-primary);
+      transform: scale(1.1);
+    }
   }
   .theme-toggle svg {
     position: absolute;
