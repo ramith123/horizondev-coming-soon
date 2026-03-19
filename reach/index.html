@@ -349,9 +349,10 @@
   }
 
   .waitlist-hint {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--text-tertiary);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-primary);
     margin-top: -0.5rem;
   }
 
@@ -457,8 +458,15 @@
     white-space: nowrap;
   }
 
-  .email-form button:hover {
+  .email-form button:hover:not(:disabled) {
     opacity: 0.9;
+  }
+
+  .email-form button:disabled {
+    background: var(--border);
+    color: var(--text-tertiary);
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 
   .cf-turnstile {
@@ -693,10 +701,10 @@
 <div class="waitlist-section">
   <div class="waitlist">
     <div class="waitlist-label">Join the waitlist</div>
-    <p class="waitlist-hint">Select your platform to reserve a spot</p>
+    <p class="waitlist-hint">Select your platform:</p>
 
     <div class="platforms">
-      <div class="platform-card selected" data-platform="ios" onclick="selectPlatform(this)">
+      <div class="platform-card" data-platform="ios" onclick="selectPlatform(this)">
         <div class="platform-icon"><i class="fa-brands fa-apple"></i></div>
         <div class="platform-name">iOS</div>
       </div>
@@ -816,18 +824,27 @@ updatePhoneScreenshots(currentTheme);
 function selectPlatform(card) {
   document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
+  var joinBtn = document.querySelector('.email-form button');
+  if (joinBtn) joinBtn.disabled = false;
+}
+
+function updateJoinButton() {
+  var joinBtn = document.querySelector('.email-form button');
+  var hasSelection = document.querySelector('.platform-card.selected');
+  if (joinBtn) joinBtn.disabled = !hasSelection;
 }
 
 // ─── Auto-detect mobile OS ───
 (function() {
-  const ua = navigator.userAgent || navigator.platform || '';
-  let detected = null;
+  var ua = navigator.userAgent || navigator.platform || '';
+  var detected = null;
   if (/android/i.test(ua)) detected = 'android';
   else if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) detected = 'ios';
   if (detected) {
-    const card = document.querySelector(`.platform-card[data-platform="${detected}"]`);
+    var card = document.querySelector('.platform-card[data-platform="' + detected + '"]');
     if (card) selectPlatform(card);
   }
+  updateJoinButton();
 })();
 
 let turnstileToken = null;
@@ -852,8 +869,15 @@ async function handleSubmit(e) {
   }
   btn.textContent = 'Joining...';
   btn.disabled = true;
+  const selectedCard = document.querySelector('.platform-card.selected');
+  if (!selectedCard) {
+    btn.textContent = 'Select platform';
+    btn.disabled = true;
+    setTimeout(() => { btn.textContent = 'Join'; updateJoinButton(); }, 2000);
+    return;
+  }
   const email = e.target.querySelector('input').value;
-  const platform = document.querySelector('.platform-card.selected')?.dataset.platform || 'ios';
+  const platform = selectedCard.dataset.platform;
   try {
     const res = await fetch(WORKER_URL, {
       method: 'POST',
