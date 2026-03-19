@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<link rel="prefetch" href="/public/reach-light-1.png">
+<link rel="prefetch" href="/public/reach-light-2.png">
+<link rel="prefetch" href="/public/reach-dark-1.png">
+<link rel="prefetch" href="/public/reach-dark-2.png">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:ital@0;1&display=swap');
 
@@ -29,6 +33,26 @@
     --blue: #00B4D8;
     --border: #1E3A45;
     --border-hover: #2A4F5E;
+  }
+
+  html[data-theme="light"] {
+    --bg: #F0F9F9;
+    --bg-secondary: #E6F7F7;
+    --bg-tertiary: #D1EDED;
+    --surface: #FFFFFF;
+    --glass: rgba(255,255,255,0.4);
+    --glass-highlight: rgba(255,255,255,0.8);
+    --text-primary: #0F4C5C;
+    --text-secondary: #5A8694;
+    --text-tertiary: #7A9AA8;
+    --brand-primary: #14B8A6;
+    --brand-light: #2DD4BF;
+    --brand-dark: #0D9488;
+    --accent: #F59E0B;
+    --accent-light: #FCD34D;
+    --blue: #0096C7;
+    --border: #D1EDED;
+    --border-hover: #CCF0EE;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -524,6 +548,86 @@
     50% { transform: translateY(6px); }
   }
 
+  /* Theme transitions */
+  body, .vignette, .top-brand, .top-brand a, .footer, .platform-card, .email-form,
+  .email-form input, .app-desc, .app-tagline, .waitlist-label, .waitlist-hint,
+  .corner--tl, .corner--br, .corner--tr, .corner--bl, .phone, .phone-shadow {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .glow-orb { transition: background 0.4s ease, opacity 0.4s ease; }
+
+  /* Light-mode overrides */
+  html[data-theme="light"] .vignette {
+    background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(240,249,249,0.5) 100%);
+  }
+  html[data-theme="light"] .glow-orb--teal { background: rgba(20,184,166,0.04); }
+  html[data-theme="light"] .glow-orb--amber { background: rgba(245,158,11,0.03); }
+  html[data-theme="light"] .corner--tr { border-color: rgba(245,158,11,0.35); }
+  html[data-theme="light"] .corner--bl { border-color: rgba(245,158,11,0.35); }
+
+  /* Light phone mockup */
+  html[data-theme="light"] .phone {
+    border-color: #CCF0EE;
+    box-shadow:
+      0 0 40px rgba(20,184,166,0.08),
+      0 40px 80px rgba(0,0,0,0.12),
+      0 15px 30px rgba(0,0,0,0.08),
+      inset 0 0 0 1px rgba(0,0,0,0.04);
+  }
+  html[data-theme="light"] .phone::before {
+    background: linear-gradient(to left, #d1eded, #e6f7f7);
+    border-top: 1px solid rgba(0,0,0,0.04);
+    border-left: 1px solid rgba(0,0,0,0.03);
+  }
+  html[data-theme="light"] .phone::after {
+    background: linear-gradient(to bottom, #d1eded, #e6f7f7);
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+  }
+  html[data-theme="light"] .phone-notch {
+    background: var(--bg);
+  }
+  html[data-theme="light"] .phone-shadow {
+    background: radial-gradient(ellipse, rgba(0,0,0,0.1) 0%, transparent 70%);
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 4.5rem;
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-hover);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+    padding: 0;
+  }
+  .theme-toggle:hover {
+    border-color: var(--brand-primary);
+    transform: scale(1.1);
+  }
+  .theme-toggle svg {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .theme-toggle .icon-moon { color: var(--text-secondary); opacity: 1; transform: rotate(0deg); }
+  .theme-toggle .icon-sun { color: var(--accent); opacity: 0; transform: rotate(-90deg); }
+  html[data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg); }
+  html[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg); }
+
+  @media (max-width: 600px) {
+    .theme-toggle { top: 1.2rem; right: 1.2rem; }
+  }
+
   @media (max-width: 480px) {
     .phone {
       width: 200px;
@@ -533,6 +637,12 @@
     .platform-card { padding: 1rem 0.8rem; }
   }
 </style>
+<script>
+(function() {
+  var saved = localStorage.getItem('horizon-theme');
+  if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
 </head>
 <body>
 
@@ -547,6 +657,11 @@
 <div class="corner corner--br"></div>
 <div class="corner corner--tr"></div>
 <div class="corner corner--bl"></div>
+
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+</button>
 
 <div class="top-brand"><a href="/">Horizon Group</a></div>
 
@@ -563,8 +678,8 @@
   <div class="right-col">
     <div class="phone">
       <div class="phone-screen" id="phone-slideshow">
-        <img src="/public/reach-1.png" alt="Reach App - Home" class="active">
-        <img src="/public/reach-2.png" alt="Reach App - Details">
+        <img src="/public/reach-dark-1.png" data-dark-src="/public/reach-dark-1.png" data-light-src="/public/reach-light-1.png" alt="Reach App - Home" class="active">
+        <img src="/public/reach-dark-2.png" data-dark-src="/public/reach-dark-2.png" data-light-src="/public/reach-light-2.png" alt="Reach App - Details">
       </div>
     </div>
     <div class="phone-shadow"></div>
@@ -602,6 +717,66 @@
 <div class="footer">&copy; 2026 Horizon Group &mdash; All rights reserved</div>
 
 <script>
+// ─── Theme Toggle ───
+var currentTheme = localStorage.getItem('horizon-theme') || 'dark';
+
+function updatePhoneScreenshots(theme) {
+  var imgs = document.querySelectorAll('#phone-slideshow img');
+  var attr = theme === 'light' ? 'data-light-src' : 'data-dark-src';
+  imgs.forEach(function(img) {
+    var src = img.getAttribute(attr);
+    if (src) img.src = src;
+  });
+}
+
+function updateSceneTheme(theme) {
+  if (typeof renderer === 'undefined') return;
+  if (theme === 'light') {
+    renderer.setClearColor(0xF0F9F9, 1);
+    particleMat.blending = THREE.NormalBlending;
+    particleMat.uniforms.uThemeAlpha.value = 0.55;
+    particleMat.needsUpdate = true;
+  } else {
+    renderer.setClearColor(0x000000, 0);
+    particleMat.blending = THREE.AdditiveBlending;
+    particleMat.uniforms.uThemeAlpha.value = 1.0;
+    particleMat.needsUpdate = true;
+  }
+}
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  localStorage.setItem('horizon-theme', theme);
+  updateSceneTheme(theme);
+  updatePhoneScreenshots(theme);
+  // Reset Turnstile with new theme
+  var turnstileDiv = document.querySelector('.cf-turnstile');
+  if (turnstileDiv) {
+    turnstileDiv.setAttribute('data-theme', theme);
+    if (window.turnstile) turnstile.reset();
+  }
+}
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
+
+// Apply initial screenshot theme
+updatePhoneScreenshots(currentTheme);
+
+// Set initial Turnstile theme
+(function() {
+  var turnstileDiv = document.querySelector('.cf-turnstile');
+  if (turnstileDiv && currentTheme === 'light') {
+    turnstileDiv.setAttribute('data-theme', 'light');
+  }
+})();
+
 // ─── Scroll indicator ───
 (function() {
   const btn = document.getElementById('scroll-indicator');
@@ -742,7 +917,7 @@ geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
 const particleMat = new THREE.ShaderMaterial({
-  uniforms: { uTime: { value: 0 } },
+  uniforms: { uTime: { value: 0 }, uThemeAlpha: { value: 1.0 } },
   vertexShader: `
     attribute float size;
     varying vec3 vColor;
@@ -763,12 +938,13 @@ const particleMat = new THREE.ShaderMaterial({
   fragmentShader: `
     varying vec3 vColor;
     varying float vAlpha;
+    uniform float uThemeAlpha;
     void main() {
       float d = length(gl_PointCoord - 0.5);
       float strength = 1.0 - smoothstep(0.0, 0.5, d);
       strength = pow(strength, 1.5);
       float glow = exp(-d * 4.0) * 0.5;
-      gl_FragColor = vec4(vColor, (strength + glow) * vAlpha);
+      gl_FragColor = vec4(vColor, (strength + glow) * vAlpha * uThemeAlpha);
     }
   `,
   transparent: true,
@@ -779,6 +955,9 @@ const particleMat = new THREE.ShaderMaterial({
 
 const particles = new THREE.Points(geo, particleMat);
 scene.add(particles);
+
+// Apply saved theme to scene
+updateSceneTheme(currentTheme);
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
