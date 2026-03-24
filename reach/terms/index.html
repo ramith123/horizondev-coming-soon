@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Reach | Horizon Group</title>
+<meta name="description" content="Terms of Service for Reach, a privacy-first personal financial tracking application by Horizon Group.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:ital@0;1&display=swap');
+
+  :root {
+    --bg: #0A1A1F;
+    --bg-secondary: #132830;
+    --bg-tertiary: #1E3A45;
+    --surface: #132830;
+    --glass: rgba(30,58,69,0.4);
+    --glass-highlight: rgba(255,255,255,0.15);
+    --text-primary: #E5F2F5;
+    --text-secondary: #A0C4CE;
+    --text-tertiary: #7A9AA8;
+    --brand-primary: #14B8A6;
+    --brand-light: #2DD4BF;
+    --brand-dark: #0D9488;
+    --accent: #FFB703;
+    --accent-light: #FFD166;
+    --blue: #00B4D8;
+    --border: #1E3A45;
+    --border-hover: #2A4F5E;
+  }
+
+  html[data-theme="light"] {
+    --bg: #F0F9F9;
+    --bg-secondary: #E6F7F7;
+    --bg-tertiary: #D1EDED;
+    --surface: #FFFFFF;
+    --glass: rgba(255,255,255,0.4);
+    --glass-highlight: rgba(255,255,255,0.8);
+    --text-primary: #0F4C5C;
+    --text-secondary: #5A8694;
+    --text-tertiary: #7A9AA8;
+    --brand-primary: #14B8A6;
+    --brand-light: #2DD4BF;
+    --brand-dark: #0D9488;
+    --accent: #F59E0B;
+    --accent-light: #FCD34D;
+    --blue: #0096C7;
+    --border: #D1EDED;
+    --border-hover: #CCF0EE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100vw;
+  }
+
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+
+  .vignette {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(10,26,31,0.7) 100%);
+  }
+
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation: orbFade 2s ease forwards;
+  }
+  .glow-orb--teal {
+    width: 400px; height: 400px;
+    background: rgba(20,184,166,0.08);
+    top: 10%; left: 15%;
+    animation-delay: 0.2s;
+  }
+  .glow-orb--amber {
+    width: 300px; height: 300px;
+    background: rgba(255,183,3,0.05);
+    bottom: 15%; right: 10%;
+    animation-delay: 0.5s;
+  }
+  @keyframes orbFade { to { opacity: 1; } }
+
+  /* Top brand */
+  .top-brand {
+    position: fixed;
+    top: 2rem;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.3s;
+  }
+  .top-brand a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .top-brand a:hover {
+    color: var(--brand-light);
+  }
+
+  /* Corner accents */
+  .corner { position: fixed; z-index: 3; pointer-events: none; }
+  .corner--tl { top: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-top: 1px solid var(--brand-dark); border-left: 1px solid var(--brand-dark); }
+  .corner--br { bottom: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid var(--brand-dark); border-right: 1px solid var(--brand-dark); }
+  .corner--tr { top: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-top: 1px solid rgba(255,183,3,0.2); border-right: 1px solid rgba(255,183,3,0.2); }
+  .corner--bl { bottom: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid rgba(255,183,3,0.2); border-left: 1px solid rgba(255,183,3,0.2); }
+
+  /* Content area */
+  .legal-content {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.5s;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--brand-primary);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 0.2s ease;
+  }
+  .back-link:hover {
+    color: var(--brand-light);
+  }
+  .back-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .legal-content h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-light) 60%, var(--accent) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .legal-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .legal-content h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .legal-content h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--brand-light);
+    margin-top: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .legal-content p {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .legal-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .legal-content a {
+    color: var(--brand-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .legal-content a:hover {
+    color: var(--brand-light);
+    text-decoration: underline;
+  }
+
+  .legal-content ul, .legal-content ol {
+    margin: 0.8rem 0 1rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .legal-content li {
+    margin-bottom: 0.4rem;
+  }
+
+  .legal-content li::marker {
+    color: var(--brand-primary);
+  }
+
+  .legal-content hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .legal-content .disclaimer {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.2rem 0;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .legal-content .disclaimer strong {
+    color: var(--accent);
+  }
+
+  .legal-content .intro {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Footer */
+  .footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding-bottom: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-tertiary);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 1.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Theme transitions */
+  body, .vignette, .top-brand, .top-brand a, .footer,
+  .corner--tl, .corner--br, .corner--tr, .corner--bl {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .glow-orb { transition: background 0.4s ease, opacity 0.4s ease; }
+
+  /* Light-mode overrides */
+  html[data-theme="light"] .vignette {
+    background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(240,249,249,0.5) 100%);
+  }
+  html[data-theme="light"] .glow-orb--teal { background: rgba(20,184,166,0.04); }
+  html[data-theme="light"] .glow-orb--amber { background: rgba(245,158,11,0.03); }
+  html[data-theme="light"] .corner--tr { border-color: rgba(245,158,11,0.35); }
+  html[data-theme="light"] .corner--bl { border-color: rgba(245,158,11,0.35); }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 4.5rem;
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-hover);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+    padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (hover: hover) {
+    .theme-toggle:hover {
+      border-color: var(--brand-primary);
+      transform: scale(1.1);
+    }
+  }
+  .theme-toggle svg {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .theme-toggle .icon-moon { color: var(--text-secondary); opacity: 1; transform: rotate(0deg); }
+  .theme-toggle .icon-sun { color: var(--accent); opacity: 0; transform: rotate(-90deg); }
+  html[data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg); }
+  html[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .theme-toggle { top: 1.2rem; right: 1.2rem; }
+    .legal-content { padding: 6rem 1.2rem 3rem; }
+  }
+</style>
+<script>
+(function() {
+  var saved = localStorage.getItem('horizon-theme');
+  if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="glow-orb glow-orb--teal"></div>
+<div class="glow-orb glow-orb--amber"></div>
+
+<div class="vignette"></div>
+
+<div class="corner corner--tl"></div>
+<div class="corner corner--br"></div>
+<div class="corner corner--tr"></div>
+<div class="corner corner--bl"></div>
+
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+</button>
+
+<div class="top-brand"><a href="/">Horizon Group</a></div>
+
+<div class="legal-content">
+  <a href="/reach/" class="back-link">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    Back to Reach
+  </a>
+
+  <h1>Terms of Service for Reach</h1>
+  <div class="legal-meta">
+    <strong>Effective Date:</strong> March 23, 2026<br>
+    <strong>Last Updated:</strong> March 23, 2026
+  </div>
+
+  <p class="intro">Please read these Terms of Service ("Terms") carefully before using Reach. By downloading, installing, or using the app, you agree to be bound by these Terms. If you do not agree, do not use the app.</p>
+
+  <hr>
+
+  <h2>1. Agreement</h2>
+  <p>These Terms constitute a legally binding agreement between you and Kadeem Compton ("Developer," "we," "us," or "our") governing your use of the Reach mobile application ("App") on iOS and Android.</p>
+
+  <hr>
+
+  <h2>2. Description of Service</h2>
+  <p>Reach is a <strong>personal financial tracking application</strong>. It allows you to:</p>
+  <ul>
+    <li>Record and categorize income, expenses, and transfers</li>
+    <li>Manage multiple accounts and track balances</li>
+    <li>Create and monitor budgets and savings goals</li>
+    <li>Set up recurring transaction reminders</li>
+    <li>Import transactions from CSV and Excel files</li>
+    <li>Export your data in multiple formats</li>
+    <li>Enter transactions via voice input</li>
+  </ul>
+
+  <p><strong>Reach is NOT:</strong></p>
+  <ul>
+    <li>A bank, credit union, or financial institution</li>
+    <li>A payment processor or money transfer service</li>
+    <li>A financial advisor, planner, or tax consultant</li>
+    <li>Connected to your bank accounts or financial institutions</li>
+  </ul>
+
+  <p>Reach is a record-keeping tool. It records what you tell it. It does not connect to external financial systems, process payments, or manage actual funds.</p>
+
+  <hr>
+
+  <h2>3. Eligibility</h2>
+  <p>You must be at least <strong>16 years old</strong> to use Reach. By using the App, you represent and warrant that you meet this age requirement. If you are between 16 and the age of majority in your jurisdiction, you confirm that you have the consent of a parent or legal guardian.</p>
+
+  <hr>
+
+  <h2>4. Your Data</h2>
+  <ul>
+    <li><strong>No account required:</strong> Reach does not require you to create a user account. There is no sign-up, login, or authentication server.</li>
+    <li><strong>Local storage:</strong> All financial data you enter is stored locally on your device. We do not have access to it.</li>
+    <li><strong>Your responsibility:</strong> You are solely responsible for:
+      <ul>
+        <li>The accuracy of the data you enter</li>
+        <li>Maintaining the security of your device</li>
+        <li>Creating backups of your data using the App's backup feature</li>
+        <li>Safeguarding any exported files (CSV, Excel, JSON backups)</li>
+      </ul>
+    </li>
+    <li><strong>Data loss:</strong> We are not responsible for loss of data due to device failure, theft, app uninstallation, operating system updates, or any other cause. We strongly recommend creating regular backups.</li>
+    <li><strong>Feedback feature:</strong> If you opt in to the feedback feature, you provide a name and email to create a profile on our feedback platform. This is governed by our <a href="/reach/privacy/">Privacy Policy</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>5. User Responsibilities</h2>
+  <p>When using Reach, you agree to:</p>
+  <ul>
+    <li>Use the App in compliance with all applicable laws and regulations</li>
+    <li>Not use the App for any unlawful purpose, including but not limited to money laundering, fraud, or tax evasion</li>
+    <li>Not attempt to reverse engineer, decompile, disassemble, or otherwise derive the source code of the App</li>
+    <li>Not attempt to interfere with or disrupt the App's functionality or associated infrastructure</li>
+    <li>Ensure the accuracy of data you enter (the App records information as you provide it)</li>
+    <li>When using the feedback feature, not post content that is abusive, defamatory, obscene, or otherwise objectionable</li>
+  </ul>
+
+  <hr>
+
+  <h2>6. Intellectual Property</h2>
+  <ul>
+    <li><strong>Our property:</strong> The App, including its design, code, graphics, icons, and documentation, is owned by the Developer and protected by intellectual property laws. All rights not expressly granted to you are reserved.</li>
+    <li><strong>Your license:</strong> We grant you a limited, non-exclusive, non-transferable, revocable license to use the App for personal, non-commercial purposes on devices you own or control.</li>
+    <li><strong>Your data:</strong> Financial data you enter into the App remains your property. We claim no ownership over your financial records, exports, or backups.</li>
+    <li><strong>Restrictions:</strong> You may not copy, modify, distribute, sell, lease, sublicense, or create derivative works based on the App or any part of it.</li>
+  </ul>
+
+  <hr>
+
+  <h2>7. Data and Privacy</h2>
+  <p>Your use of the App is also governed by our <a href="/reach/privacy/">Privacy Policy</a>, which describes what data is collected, how it is used, and your rights. By using the App, you acknowledge that you have read and understood the Privacy Policy.</p>
+
+  <hr>
+
+  <h2>8. Disclaimers</h2>
+  <p><strong>PLEASE READ THIS SECTION CAREFULLY. IT LIMITS OUR LIABILITY TO YOU.</strong></p>
+
+  <ul>
+    <li><strong>Not financial advice.</strong> Nothing in Reach constitutes financial, investment, tax, legal, or accounting advice. The App is a tracking and organizational tool only. Always consult qualified professionals before making financial decisions.</li>
+    <li><strong>Not a financial institution.</strong> Reach does not hold, manage, transfer, or have access to your actual money. Balances shown in the App reflect only the data you have entered.</li>
+    <li><strong>Accuracy depends on you.</strong> The accuracy of all records, balances, budgets, and projections in Reach depends entirely on the data you enter. We do not verify, validate, or audit your entries.</li>
+    <li><strong>Voice recognition.</strong> Speech-to-text conversion may produce inaccurate transcriptions. You are responsible for reviewing and correcting all voice-entered transactions before confirming them.</li>
+    <li><strong>Calculations are estimates.</strong> Budget calculations, savings projections, and cash flow analyses are estimates based on the data you provide. They should not be relied upon for critical financial decisions.</li>
+  </ul>
+
+  <div class="disclaimer">
+    <strong>"AS IS" BASIS.</strong> THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, ACCURACY, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE APP WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF HARMFUL COMPONENTS.
+  </div>
+
+  <hr>
+
+  <h2>9. Limitation of Liability</h2>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW:</p>
+  <ul>
+    <li>The Developer shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the App.</li>
+    <li>This includes, without limitation: loss of data, loss of profits, financial loss from reliance on App data, device damage, or inability to use the App.</li>
+    <li>Our total aggregate liability for any claims arising from or related to these Terms or the App shall not exceed the amount you paid for the App (if any) in the twelve (12) months preceding the claim.</li>
+    <li>Some jurisdictions do not allow the exclusion or limitation of certain warranties or liabilities. In such jurisdictions, our liability is limited to the greatest extent permitted by law.</li>
+    <li>Nothing in these Terms excludes or limits liability for: (a) fraud or fraudulent misrepresentation; (b) death or personal injury caused by negligence; or (c) any other liability that cannot be excluded by law.</li>
+  </ul>
+
+  <hr>
+
+  <h2>10. Indemnification</h2>
+  <p>You agree to indemnify, defend, and hold harmless the Developer from and against any claims, damages, losses, liabilities, costs, and expenses (including reasonable legal fees) arising from:</p>
+  <ul>
+    <li>Your use of the App</li>
+    <li>Your violation of these Terms</li>
+    <li>Your violation of any applicable law or regulation</li>
+    <li>Your violation of any third party's rights</li>
+    <li>Content you submit through the feedback feature</li>
+  </ul>
+
+  <hr>
+
+  <h2>11. Termination</h2>
+  <ul>
+    <li><strong>By you:</strong> You may stop using the App at any time by uninstalling it from your device. Your local data remains on your device until you delete it.</li>
+    <li><strong>By us:</strong> We may terminate or suspend your access to the feedback feature if you violate these Terms.</li>
+    <li><strong>Effect of termination:</strong> Upon termination, your license to use the App ceases. Sections that by their nature should survive termination will continue to apply, including: Disclaimers, Limitation of Liability, Indemnification, and Governing Law.</li>
+  </ul>
+
+  <hr>
+
+  <h2>12. Changes to These Terms</h2>
+  <p>We reserve the right to modify these Terms at any time. When we make material changes, we will update the "Last Updated" date at the top and may notify you through the App or our website. Your continued use of the App after changes are posted constitutes your acceptance of the updated Terms. If you disagree with updated Terms, you should discontinue use of the App.</p>
+
+  <hr>
+
+  <h2>13. Governing Law and Dispute Resolution</h2>
+  <ul>
+    <li><strong>Governing law:</strong> These Terms shall be governed by and construed in accordance with the laws of <strong>Grenada</strong>, without regard to its conflict of law provisions.</li>
+    <li><strong>Informal resolution:</strong> Before filing any formal legal claim, you agree to first contact us at <strong>support@horizongroup.dev</strong> and attempt to resolve the dispute informally for at least 30 days.</li>
+    <li><strong>Jurisdiction:</strong> If informal resolution is unsuccessful, any legal proceedings shall be brought in the courts of Grenada.</li>
+    <li><strong>EU consumers:</strong> If you are a consumer in the European Union, nothing in this section affects your right to bring proceedings in the courts of your country of residence or to rely on mandatory consumer protection laws of your jurisdiction. You may also use the European Commission's Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr">https://ec.europa.eu/consumers/odr</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>14. General Provisions</h2>
+  <ul>
+    <li><strong>Severability:</strong> If any provision of these Terms is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.</li>
+    <li><strong>Entire agreement:</strong> These Terms, together with the Privacy Policy, constitute the entire agreement between you and the Developer regarding your use of the App.</li>
+    <li><strong>Waiver:</strong> Our failure to enforce any right or provision of these Terms shall not constitute a waiver of that right or provision.</li>
+    <li><strong>Assignment:</strong> We may assign our rights and obligations under these Terms. You may not assign your rights or obligations without our prior written consent.</li>
+  </ul>
+
+  <hr>
+
+  <h2>15. Contact Us</h2>
+  <p>If you have questions or concerns about these Terms, please contact us:</p>
+  <p><strong>Kadeem Compton</strong><br>
+  Email: <strong>support@horizongroup.dev</strong><br>
+  Subject line: "Legal Inquiry"</p>
+</div>
+
+<div class="footer">&copy; 2026 Horizon Group &mdash; All rights reserved</div>
+
+<script>
+// ─── Theme Toggle ───
+var currentTheme = localStorage.getItem('horizon-theme') || 'dark';
+
+function updateSceneTheme(theme) {
+  if (typeof renderer === 'undefined') return;
+  if (theme === 'light') {
+    renderer.setClearColor(0xF0F9F9, 1);
+    particleMat.blending = THREE.NormalBlending;
+    particleMat.uniforms.uThemeAlpha.value = 0.55;
+    particleMat.needsUpdate = true;
+  } else {
+    renderer.setClearColor(0x000000, 0);
+    particleMat.blending = THREE.AdditiveBlending;
+    particleMat.uniforms.uThemeAlpha.value = 1.0;
+    particleMat.needsUpdate = true;
+  }
+}
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  localStorage.setItem('horizon-theme', theme);
+  updateSceneTheme(theme);
+}
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
+
+// ─── Three.js Particle Scene ───
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 50;
+
+const COLORS = [
+  new THREE.Color(0x14B8A6),
+  new THREE.Color(0xFFB703),
+  new THREE.Color(0x00B4D8),
+  new THREE.Color(0x34D399),
+];
+
+const PARTICLE_COUNT = 1000;
+const geo = new THREE.BufferGeometry();
+const positions = new Float32Array(PARTICLE_COUNT * 3);
+const colors = new Float32Array(PARTICLE_COUNT * 3);
+const sizes = new Float32Array(PARTICLE_COUNT);
+const velocities = [];
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  const i3 = i * 3;
+  positions[i3]     = (Math.random() - 0.5) * 120;
+  positions[i3 + 1] = (Math.random() - 0.5) * 80;
+  positions[i3 + 2] = (Math.random() - 0.5) * 60;
+  const col = COLORS[Math.floor(Math.random() * COLORS.length)];
+  colors[i3] = col.r; colors[i3+1] = col.g; colors[i3+2] = col.b;
+  sizes[i] = Math.random() * 2.5 + 0.5;
+  velocities.push({
+    x: (Math.random() - 0.5) * 0.012,
+    y: (Math.random() - 0.5) * 0.012,
+    z: (Math.random() - 0.5) * 0.008,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.3 + 0.1,
+  });
+}
+
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+const particleMat = new THREE.ShaderMaterial({
+  uniforms: { uTime: { value: 0 }, uThemeAlpha: { value: 1.0 } },
+  vertexShader: `
+    attribute float size;
+    varying vec3 vColor;
+    varying float vAlpha;
+    uniform float uTime;
+    void main() {
+      vColor = color;
+      vec3 pos = position;
+      pos.x += sin(uTime * 0.15 + position.y * 0.05) * 1.2;
+      pos.y += cos(uTime * 0.12 + position.x * 0.04) * 0.8;
+      vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+      float depth = smoothstep(-80.0, 10.0, mvPos.z);
+      vAlpha = depth * 0.6 + 0.1;
+      gl_PointSize = size * (200.0 / -mvPos.z) * (depth * 0.6 + 0.4);
+      gl_Position = projectionMatrix * mvPos;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vColor;
+    varying float vAlpha;
+    uniform float uThemeAlpha;
+    void main() {
+      float d = length(gl_PointCoord - 0.5);
+      float strength = 1.0 - smoothstep(0.0, 0.5, d);
+      strength = pow(strength, 1.5);
+      float glow = exp(-d * 4.0) * 0.5;
+      gl_FragColor = vec4(vColor, (strength + glow) * vAlpha * uThemeAlpha);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  vertexColors: true,
+});
+
+const particles = new THREE.Points(geo, particleMat);
+scene.add(particles);
+
+updateSceneTheme(currentTheme);
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  particleMat.uniforms.uTime.value = t;
+  const pos = geo.attributes.position.array;
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const i3 = i * 3;
+    const v = velocities[i];
+    pos[i3] += v.x + Math.sin(t * v.speed + v.phase) * 0.006;
+    pos[i3+1] += v.y + Math.cos(t * v.speed + v.phase) * 0.005;
+    pos[i3+2] += v.z;
+    if (pos[i3] > 60) pos[i3] = -60;
+    if (pos[i3] < -60) pos[i3] = 60;
+    if (pos[i3+1] > 40) pos[i3+1] = -40;
+    if (pos[i3+1] < -40) pos[i3+1] = 40;
+    if (pos[i3+2] > 30) pos[i3+2] = -30;
+    if (pos[i3+2] < -30) pos[i3+2] = 30;
+  }
+  geo.attributes.position.needsUpdate = true;
+  particles.rotation.y = t * 0.015;
+  particles.rotation.x = Math.sin(t * 0.01) * 0.08;
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>

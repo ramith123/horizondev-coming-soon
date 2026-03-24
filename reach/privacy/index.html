@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Reach | Horizon Group</title>
+<meta name="description" content="Privacy Policy for Reach, a privacy-first personal financial tracking application by Horizon Group.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:ital@0;1&display=swap');
+
+  :root {
+    --bg: #0A1A1F;
+    --bg-secondary: #132830;
+    --bg-tertiary: #1E3A45;
+    --surface: #132830;
+    --glass: rgba(30,58,69,0.4);
+    --glass-highlight: rgba(255,255,255,0.15);
+    --text-primary: #E5F2F5;
+    --text-secondary: #A0C4CE;
+    --text-tertiary: #7A9AA8;
+    --brand-primary: #14B8A6;
+    --brand-light: #2DD4BF;
+    --brand-dark: #0D9488;
+    --accent: #FFB703;
+    --accent-light: #FFD166;
+    --blue: #00B4D8;
+    --border: #1E3A45;
+    --border-hover: #2A4F5E;
+  }
+
+  html[data-theme="light"] {
+    --bg: #F0F9F9;
+    --bg-secondary: #E6F7F7;
+    --bg-tertiary: #D1EDED;
+    --surface: #FFFFFF;
+    --glass: rgba(255,255,255,0.4);
+    --glass-highlight: rgba(255,255,255,0.8);
+    --text-primary: #0F4C5C;
+    --text-secondary: #5A8694;
+    --text-tertiary: #7A9AA8;
+    --brand-primary: #14B8A6;
+    --brand-light: #2DD4BF;
+    --brand-dark: #0D9488;
+    --accent: #F59E0B;
+    --accent-light: #FCD34D;
+    --blue: #0096C7;
+    --border: #D1EDED;
+    --border-hover: #CCF0EE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100vw;
+  }
+
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+
+  .vignette {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(10,26,31,0.7) 100%);
+  }
+
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation: orbFade 2s ease forwards;
+  }
+  .glow-orb--teal {
+    width: 400px; height: 400px;
+    background: rgba(20,184,166,0.08);
+    top: 10%; left: 15%;
+    animation-delay: 0.2s;
+  }
+  .glow-orb--amber {
+    width: 300px; height: 300px;
+    background: rgba(255,183,3,0.05);
+    bottom: 15%; right: 10%;
+    animation-delay: 0.5s;
+  }
+  @keyframes orbFade { to { opacity: 1; } }
+
+  /* Top brand */
+  .top-brand {
+    position: fixed;
+    top: 2rem;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.3s;
+  }
+  .top-brand a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .top-brand a:hover {
+    color: var(--brand-light);
+  }
+
+  /* Corner accents */
+  .corner { position: fixed; z-index: 3; pointer-events: none; }
+  .corner--tl { top: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-top: 1px solid var(--brand-dark); border-left: 1px solid var(--brand-dark); }
+  .corner--br { bottom: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid var(--brand-dark); border-right: 1px solid var(--brand-dark); }
+  .corner--tr { top: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-top: 1px solid rgba(255,183,3,0.2); border-right: 1px solid rgba(255,183,3,0.2); }
+  .corner--bl { bottom: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid rgba(255,183,3,0.2); border-left: 1px solid rgba(255,183,3,0.2); }
+
+  /* Content area */
+  .legal-content {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 0.5s;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--brand-primary);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: color 0.2s ease;
+  }
+  .back-link:hover {
+    color: var(--brand-light);
+  }
+  .back-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .legal-content h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-light) 60%, var(--accent) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .legal-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .legal-content h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .legal-content h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--brand-light);
+    margin-top: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .legal-content p {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .legal-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .legal-content a {
+    color: var(--brand-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .legal-content a:hover {
+    color: var(--brand-light);
+    text-decoration: underline;
+  }
+
+  .legal-content ul, .legal-content ol {
+    margin: 0.8rem 0 1rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .legal-content li {
+    margin-bottom: 0.4rem;
+  }
+
+  .legal-content li::marker {
+    color: var(--brand-primary);
+  }
+
+  .legal-content hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .legal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2rem 0;
+    font-size: 0.85rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .legal-content thead th {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+  }
+
+  .legal-content tbody td {
+    padding: 0.7rem 1rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+
+  .legal-content tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .legal-content .intro {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Footer */
+  .footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding-bottom: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-tertiary);
+    letter-spacing: 0.2em;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 1.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Theme transitions */
+  body, .vignette, .top-brand, .top-brand a, .footer,
+  .corner--tl, .corner--br, .corner--tr, .corner--bl {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .glow-orb { transition: background 0.4s ease, opacity 0.4s ease; }
+
+  /* Light-mode overrides */
+  html[data-theme="light"] .vignette {
+    background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(240,249,249,0.5) 100%);
+  }
+  html[data-theme="light"] .glow-orb--teal { background: rgba(20,184,166,0.04); }
+  html[data-theme="light"] .glow-orb--amber { background: rgba(245,158,11,0.03); }
+  html[data-theme="light"] .corner--tr { border-color: rgba(245,158,11,0.35); }
+  html[data-theme="light"] .corner--bl { border-color: rgba(245,158,11,0.35); }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 4.5rem;
+    z-index: 20;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-hover);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+    padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (hover: hover) {
+    .theme-toggle:hover {
+      border-color: var(--brand-primary);
+      transform: scale(1.1);
+    }
+  }
+  .theme-toggle svg {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .theme-toggle .icon-moon { color: var(--text-secondary); opacity: 1; transform: rotate(0deg); }
+  .theme-toggle .icon-sun { color: var(--accent); opacity: 0; transform: rotate(-90deg); }
+  html[data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg); }
+  html[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .theme-toggle { top: 1.2rem; right: 1.2rem; }
+    .legal-content { padding: 6rem 1.2rem 3rem; }
+    .legal-content table { font-size: 0.78rem; }
+    .legal-content thead th, .legal-content tbody td { padding: 0.5rem 0.6rem; }
+  }
+</style>
+<script>
+(function() {
+  var saved = localStorage.getItem('horizon-theme');
+  if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+})();
+</script>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="glow-orb glow-orb--teal"></div>
+<div class="glow-orb glow-orb--amber"></div>
+
+<div class="vignette"></div>
+
+<div class="corner corner--tl"></div>
+<div class="corner corner--br"></div>
+<div class="corner corner--tr"></div>
+<div class="corner corner--bl"></div>
+
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+</button>
+
+<div class="top-brand"><a href="/">Horizon Group</a></div>
+
+<div class="legal-content">
+  <a href="/reach/" class="back-link">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    Back to Reach
+  </a>
+
+  <h1>Privacy Policy for Reach</h1>
+  <div class="legal-meta">
+    <strong>Effective Date:</strong> March 23, 2026<br>
+    <strong>Last Updated:</strong> March 23, 2026
+  </div>
+
+  <p class="intro">Kadeem Compton ("Developer," "we," "us," or "our") operates Reach, a personal financial tracking application available on iOS and Android. This Privacy Policy explains how we collect, use, store, and protect your information when you use our app.</p>
+
+  <p class="intro">Reach is designed with a <strong>local-first architecture</strong> — the vast majority of your data never leaves your device. We do not operate a cloud backend, and we do not have access to your financial records.</p>
+
+  <p>If you have questions about this policy, contact us at <strong>support@horizongroup.dev</strong>.</p>
+
+  <hr>
+
+  <h2>1. Data We Collect</h2>
+  <p>We organize the data associated with Reach into three categories based on where it is stored and how it is handled.</p>
+
+  <h3>1.1 Data Stored Locally on Your Device</h3>
+  <p>The following data is stored exclusively on your device using a local database. <strong>We cannot access, view, or retrieve this data.</strong></p>
+  <ul>
+    <li><strong>Financial records:</strong> Transactions (amounts, descriptions, dates, notes, account references), accounts (names, types, balances), categories (names, types, icons, colors)</li>
+    <li><strong>Planning data:</strong> Budgets (names, amounts, periods, allocation percentages, monthly snapshots), savings goals (names, targets, deadlines, contributions, status), recurring transactions (descriptions, frequencies, amounts)</li>
+    <li><strong>Import data:</strong> Import batch records, column mappings, learned category mappings from imported CSV/Excel files</li>
+    <li><strong>Voice input transcriptions:</strong> The text output of speech-to-text conversion, stored locally in your transaction inbox</li>
+    <li><strong>App preferences:</strong> Theme selection, onboarding status, notification preferences, app lock settings</li>
+  </ul>
+  <p>You control this data entirely. You can export it (CSV, Excel, or JSON backup), delete it, or remove it by uninstalling the app.</p>
+
+  <h3>1.2 Analytics Data (Sent to PostHog)</h3>
+  <p>We use PostHog, a product analytics service, to understand how Reach is used so we can improve the app. Analytics data is collected automatically in production builds.</p>
+
+  <p><strong>What we collect:</strong></p>
+  <ul>
+    <li><strong>Usage events:</strong> Screen navigation, feature usage milestones (e.g., first transaction recorded, activation reached, feature discovered), onboarding progress, data import completion</li>
+    <li><strong>Aggregated properties:</strong> Total transaction count in buckets (e.g., "1-5," "6-20," "21-50," "50+"), data mode (demo or real), primary entry method, features discovered</li>
+    <li><strong>Device metadata</strong> (collected automatically by the PostHog SDK): Operating system, OS version, device type, app version, screen dimensions, SDK version, locale/language</li>
+  </ul>
+
+  <p><strong>What we do NOT collect through analytics:</strong></p>
+  <ul>
+    <li>Transaction amounts, descriptions, or details</li>
+    <li>Account names or balances</li>
+    <li>Category names</li>
+    <li>Any actual financial data</li>
+  </ul>
+
+  <p>Analytics data is associated with an <strong>anonymous device identifier</strong> generated by PostHog — not your name, email, or any personal account.</p>
+
+  <p><strong>Provider:</strong> PostHog, Inc.<br>
+  <strong>Server location:</strong> United States (us.i.posthog.com)<br>
+  <strong>PostHog privacy policy:</strong> <a href="https://posthog.com/privacy">https://posthog.com/privacy</a></p>
+
+  <h3>1.3 Feedback Data (Opt-In Only)</h3>
+  <p>If you choose to participate in our feedback feature, we collect the following:</p>
+  <ul>
+    <li><strong>Name and email address</strong> (provided by you when you register for feedback)</li>
+    <li><strong>Feedback content:</strong> Post titles, descriptions, comments, and votes</li>
+    <li><strong>Reference identifier:</strong> A unique ID derived from your email, used to associate your feedback activity</li>
+  </ul>
+  <p>This data is collected only when you voluntarily register for and use the feedback feature.</p>
+  <p><strong>Provider:</strong> Self-hosted Fider instance<br>
+  <strong>Server location:</strong> feedback.horizongroup.dev</p>
+
+  <hr>
+
+  <h2>2. How We Use Your Data</h2>
+
+  <table>
+    <thead>
+      <tr><th>Data</th><th>Purpose</th><th>GDPR Lawful Basis</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Local financial data</td><td>Provide core app functionality (tracking, budgeting, goal setting)</td><td>Performance of contract (Art. 6(1)(b))</td></tr>
+      <tr><td>Analytics data (PostHog)</td><td>Understand feature usage, identify issues, improve the app</td><td>Legitimate interest (Art. 6(1)(f))</td></tr>
+      <tr><td>Feedback data (Fider)</td><td>Collect and respond to user feature requests and bug reports</td><td>Consent (Art. 6(1)(a))</td></tr>
+      <tr><td>Voice audio (platform speech services)</td><td>Convert speech to text for transaction entry</td><td>Consent (Art. 6(1)(a))</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>We do NOT use your data for:</strong></p>
+  <ul>
+    <li>Advertising or ad targeting</li>
+    <li>Profiling for credit or financial decisions</li>
+    <li>Selling to third parties</li>
+    <li>Automated decision-making with legal or similarly significant effects</li>
+  </ul>
+
+  <hr>
+
+  <h2>3. Third-Party Services</h2>
+
+  <h3>3.1 PostHog (Product Analytics)</h3>
+  <p>PostHog receives anonymous usage events and device metadata to help us understand how Reach is used. No financial data is transmitted. PostHog processes data on servers in the United States and maintains its own privacy practices as described in its <a href="https://posthog.com/privacy">privacy policy</a>.</p>
+
+  <h3>3.2 Fider (Feedback Platform)</h3>
+  <p>Our feedback feature is powered by a self-hosted Fider instance at feedback.horizongroup.dev. When you opt in to the feedback feature, your name, email, and feedback content are sent to this platform. We control this server.</p>
+
+  <h3>3.3 Apple Speech Recognition (iOS)</h3>
+  <p>When you use voice entry on iOS, audio is processed by Apple's Speech Recognition framework. Depending on your device and iOS version, audio may be processed on-device or sent to Apple's servers. We do not control Apple's processing of this audio. The resulting text transcription is stored only locally on your device. See <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a> for details.</p>
+
+  <h3>3.4 Google Speech Services (Android)</h3>
+  <p>When you use voice entry on Android, audio is processed by Google's speech recognition services. Audio may be sent to Google's servers for processing. We do not control Google's processing of this audio. The resulting text transcription is stored only locally on your device. See <a href="https://policies.google.com/privacy">Google's privacy policy</a> for details.</p>
+
+  <h3>3.5 Platform Services (Apple &amp; Google)</h3>
+  <ul>
+    <li><strong>Biometric authentication</strong> (Face ID, Touch ID, fingerprint): Processed entirely by your device's operating system. Reach only receives a success or failure result — we never access or store biometric data.</li>
+    <li><strong>Local notifications:</strong> Scheduled and delivered by your device's operating system for recurring transaction reminders. No data is sent to any external server.</li>
+  </ul>
+
+  <hr>
+
+  <h2>4. Device Permissions</h2>
+
+  <table>
+    <thead>
+      <tr><th>Permission</th><th>Platform</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Speech Recognition</td><td>iOS</td><td>Convert voice input to text for transaction entry</td></tr>
+      <tr><td>Microphone</td><td>iOS, Android</td><td>Capture audio for voice-based transaction entry</td></tr>
+      <tr><td>Face ID</td><td>iOS</td><td>Optional app lock to protect your financial data</td></tr>
+      <tr><td>Biometric / Fingerprint</td><td>Android</td><td>Optional app lock to protect your financial data</td></tr>
+    </tbody>
+  </table>
+
+  <p>All permissions are requested only when the relevant feature is first used. You can revoke any permission at any time through your device's Settings app. Revoking a permission disables the associated feature but does not affect the rest of the app.</p>
+
+  <hr>
+
+  <h2>5. Data Storage and Security</h2>
+  <ul>
+    <li><strong>Local-first storage:</strong> All financial data is stored on your device using TinyBase, a local database. There is no cloud backend and no server-side copy of your financial records.</li>
+    <li><strong>App lock:</strong> You can enable biometric authentication (Face ID, Touch ID, or fingerprint) to restrict access to the app.</li>
+    <li><strong>Backups:</strong> You can create JSON backup files of your data. These backups are stored locally on your device in a location you choose. We do not have access to your backup files.</li>
+    <li><strong>Exports:</strong> You can export transactions as CSV or Excel files with optional filters. Exported files are stored locally and shared only if you choose to share them.</li>
+    <li><strong>Encryption in transit:</strong> Data sent to PostHog and Fider is transmitted over HTTPS (TLS encryption).</li>
+    <li><strong>Demo mode:</strong> The app includes a demo mode that uses temporary in-memory data. No demo data is persisted or transmitted.</li>
+  </ul>
+
+  <hr>
+
+  <h2>6. International Data Transfers</h2>
+  <ul>
+    <li><strong>PostHog analytics data</strong> is transferred to and processed on servers in the <strong>United States</strong>. For users in the EU/EEA, this transfer is supported by Standard Contractual Clauses (SCCs) as provided by PostHog.</li>
+    <li><strong>Speech recognition audio</strong> may be processed by Apple or Google servers located outside your country of residence, subject to their respective privacy policies and data transfer mechanisms.</li>
+    <li><strong>Fider feedback data</strong> is processed on our self-hosted server, which may be located outside the EU/EEA.</li>
+    <li><strong>Local data</strong> on your device is not transferred anywhere unless you explicitly choose to export or share it.</li>
+  </ul>
+
+  <hr>
+
+  <h2>7. Your Privacy Rights</h2>
+
+  <h3>7.1 Rights Under the GDPR (EU/EEA Users)</h3>
+  <p>If you are in the European Union or European Economic Area, you have the following rights under the General Data Protection Regulation:</p>
+  <ul>
+    <li><strong>Right of access</strong> (Art. 15): Request a copy of the personal data we hold about you.</li>
+    <li><strong>Right to rectification</strong> (Art. 16): Request correction of inaccurate personal data.</li>
+    <li><strong>Right to erasure</strong> (Art. 17): Request deletion of your personal data.</li>
+    <li><strong>Right to restriction</strong> (Art. 18): Request that we restrict processing of your data.</li>
+    <li><strong>Right to data portability</strong> (Art. 20): Receive your data in a structured, machine-readable format. For local data, you can use Reach's built-in CSV, Excel, or JSON backup export features.</li>
+    <li><strong>Right to object</strong> (Art. 21): Object to processing based on legitimate interest (e.g., analytics).</li>
+    <li><strong>Right to withdraw consent:</strong> You may withdraw consent for feedback participation or voice input at any time without affecting the lawfulness of prior processing.</li>
+    <li><strong>Right to lodge a complaint:</strong> You have the right to lodge a complaint with a supervisory authority in your EU/EEA member state.</li>
+  </ul>
+
+  <h3>7.2 Rights Under the CCPA (California Residents)</h3>
+  <p>If you are a California resident, you have the following rights under the California Consumer Privacy Act:</p>
+  <ul>
+    <li><strong>Right to know:</strong> Request what personal information we collect about you and how it is used.</li>
+    <li><strong>Right to delete:</strong> Request deletion of your personal information.</li>
+    <li><strong>Right to opt-out of sale:</strong> We do <strong>not</strong> sell your personal information and have not done so in the preceding 12 months.</li>
+    <li><strong>Right to non-discrimination:</strong> We will not discriminate against you for exercising any of your rights.</li>
+  </ul>
+
+  <p><strong>Categories of personal information collected in the preceding 12 months:</strong></p>
+
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Collected</th><th>Source</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Identifiers (anonymous device ID)</td><td>Yes</td><td>Automatically via PostHog SDK</td><td>Analytics</td></tr>
+      <tr><td>Personal identifiers (name, email)</td><td>Yes, opt-in only</td><td>Directly from user via feedback feature</td><td>Feedback</td></tr>
+      <tr><td>Internet/electronic activity (usage events)</td><td>Yes</td><td>Automatically via PostHog SDK</td><td>Analytics</td></tr>
+      <tr><td>Financial information</td><td>No</td><td>N/A</td><td>Stored locally only, never transmitted</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Categories of personal information disclosed for a business purpose:</strong> Analytics data is disclosed to PostHog (service provider); feedback data is processed on our self-hosted Fider instance.</p>
+
+  <h3>7.3 How to Exercise Your Rights</h3>
+  <ul>
+    <li><strong>Local data:</strong> Use the app's built-in features to export (backup, CSV, Excel) or delete your data. Uninstalling the app removes all local data.</li>
+    <li><strong>Analytics data (PostHog):</strong> Email <strong>support@horizongroup.dev</strong> to request deletion of analytics data associated with your anonymous device identifier.</li>
+    <li><strong>Feedback data (Fider):</strong> Email <strong>support@horizongroup.dev</strong> to request deletion of your feedback account and all associated content.</li>
+    <li><strong>Opt out of analytics:</strong> Email <strong>support@horizongroup.dev</strong> and we will configure PostHog to exclude your device from data collection.</li>
+  </ul>
+
+  <p>We will respond to verifiable requests within <strong>30 days</strong>. If additional time is needed, we will notify you of the extension and the reason, up to a maximum of 45 days for CCPA requests or 90 days for GDPR requests.</p>
+
+  <hr>
+
+  <h2>8. Data Retention and Deletion</h2>
+
+  <table>
+    <thead>
+      <tr><th>Data</th><th>Retention Period</th><th>How to Delete</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Local financial data</td><td>Until you delete it or uninstall the app</td><td>Use in-app data management features or uninstall</td></tr>
+      <tr><td>Analytics data (PostHog)</td><td>Per PostHog's retention policies</td><td>Request deletion via support@horizongroup.dev</td></tr>
+      <tr><td>Feedback data (Fider)</td><td>As long as the feedback platform operates</td><td>Request deletion via support@horizongroup.dev</td></tr>
+      <tr><td>Backup/export files</td><td>Under your control</td><td>Delete files from your device storage</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>9. Children's Privacy</h2>
+  <p>Reach is not directed at children. You must be at least <strong>16 years old</strong> to use this app. We do not knowingly collect personal data from anyone under 16. If we learn that we have inadvertently collected data from a person under 16, we will take steps to delete it promptly. If you are a parent or guardian and believe your child has provided data to us, please contact us at <strong>support@horizongroup.dev</strong>.</p>
+
+  <hr>
+
+  <h2>10. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. When we make material changes, we will notify you through the app or on our website. The "Last Updated" date at the top of this policy will be revised accordingly. Your continued use of Reach after changes are posted constitutes your acceptance of the updated policy. We encourage you to review this policy periodically.</p>
+
+  <hr>
+
+  <h2>11. Contact Us</h2>
+  <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us:</p>
+  <p><strong>Kadeem Compton</strong><br>
+  Email: <strong>support@horizongroup.dev</strong><br>
+  Subject line: "Privacy Request"</p>
+</div>
+
+<div class="footer">&copy; 2026 Horizon Group &mdash; All rights reserved</div>
+
+<script>
+// ─── Theme Toggle ───
+var currentTheme = localStorage.getItem('horizon-theme') || 'dark';
+
+function updateSceneTheme(theme) {
+  if (typeof renderer === 'undefined') return;
+  if (theme === 'light') {
+    renderer.setClearColor(0xF0F9F9, 1);
+    particleMat.blending = THREE.NormalBlending;
+    particleMat.uniforms.uThemeAlpha.value = 0.55;
+    particleMat.needsUpdate = true;
+  } else {
+    renderer.setClearColor(0x000000, 0);
+    particleMat.blending = THREE.AdditiveBlending;
+    particleMat.uniforms.uThemeAlpha.value = 1.0;
+    particleMat.needsUpdate = true;
+  }
+}
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  localStorage.setItem('horizon-theme', theme);
+  updateSceneTheme(theme);
+}
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
+
+// ─── Three.js Particle Scene ───
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 50;
+
+const COLORS = [
+  new THREE.Color(0x14B8A6),
+  new THREE.Color(0xFFB703),
+  new THREE.Color(0x00B4D8),
+  new THREE.Color(0x34D399),
+];
+
+const PARTICLE_COUNT = 1000;
+const geo = new THREE.BufferGeometry();
+const positions = new Float32Array(PARTICLE_COUNT * 3);
+const colors = new Float32Array(PARTICLE_COUNT * 3);
+const sizes = new Float32Array(PARTICLE_COUNT);
+const velocities = [];
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  const i3 = i * 3;
+  positions[i3]     = (Math.random() - 0.5) * 120;
+  positions[i3 + 1] = (Math.random() - 0.5) * 80;
+  positions[i3 + 2] = (Math.random() - 0.5) * 60;
+  const col = COLORS[Math.floor(Math.random() * COLORS.length)];
+  colors[i3] = col.r; colors[i3+1] = col.g; colors[i3+2] = col.b;
+  sizes[i] = Math.random() * 2.5 + 0.5;
+  velocities.push({
+    x: (Math.random() - 0.5) * 0.012,
+    y: (Math.random() - 0.5) * 0.012,
+    z: (Math.random() - 0.5) * 0.008,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.3 + 0.1,
+  });
+}
+
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+const particleMat = new THREE.ShaderMaterial({
+  uniforms: { uTime: { value: 0 }, uThemeAlpha: { value: 1.0 } },
+  vertexShader: `
+    attribute float size;
+    varying vec3 vColor;
+    varying float vAlpha;
+    uniform float uTime;
+    void main() {
+      vColor = color;
+      vec3 pos = position;
+      pos.x += sin(uTime * 0.15 + position.y * 0.05) * 1.2;
+      pos.y += cos(uTime * 0.12 + position.x * 0.04) * 0.8;
+      vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+      float depth = smoothstep(-80.0, 10.0, mvPos.z);
+      vAlpha = depth * 0.6 + 0.1;
+      gl_PointSize = size * (200.0 / -mvPos.z) * (depth * 0.6 + 0.4);
+      gl_Position = projectionMatrix * mvPos;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vColor;
+    varying float vAlpha;
+    uniform float uThemeAlpha;
+    void main() {
+      float d = length(gl_PointCoord - 0.5);
+      float strength = 1.0 - smoothstep(0.0, 0.5, d);
+      strength = pow(strength, 1.5);
+      float glow = exp(-d * 4.0) * 0.5;
+      gl_FragColor = vec4(vColor, (strength + glow) * vAlpha * uThemeAlpha);
+    }
+  `,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  vertexColors: true,
+});
+
+const particles = new THREE.Points(geo, particleMat);
+scene.add(particles);
+
+updateSceneTheme(currentTheme);
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const t = clock.getElapsedTime();
+  particleMat.uniforms.uTime.value = t;
+  const pos = geo.attributes.position.array;
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const i3 = i * 3;
+    const v = velocities[i];
+    pos[i3] += v.x + Math.sin(t * v.speed + v.phase) * 0.006;
+    pos[i3+1] += v.y + Math.cos(t * v.speed + v.phase) * 0.005;
+    pos[i3+2] += v.z;
+    if (pos[i3] > 60) pos[i3] = -60;
+    if (pos[i3] < -60) pos[i3] = 60;
+    if (pos[i3+1] > 40) pos[i3+1] = -40;
+    if (pos[i3+1] < -40) pos[i3+1] = 40;
+    if (pos[i3+2] > 30) pos[i3+2] = -30;
+    if (pos[i3+2] < -30) pos[i3+2] = 30;
+  }
+  geo.attributes.position.needsUpdate = true;
+  particles.rotation.y = t * 0.015;
+  particles.rotation.x = Math.sin(t * 0.01) * 0.08;
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>
