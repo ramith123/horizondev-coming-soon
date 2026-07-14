@@ -3,17 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reach — Privacy-First Wallet App | Horizon Group</title>
-<meta name="description" content="Reach is a privacy-first wallet app that makes tracking your money effortless. Launching soon on iOS and Android — join the waitlist to be first in.">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>Reach: Pocket CFO | Budget, Savings, Debt &amp; Insights App</title>
+<meta name="description" content="Reach is the privacy-first pocket CFO for iOS and Android. Budgets, savings goals, debt payoff, cashflow forecasts and monthly insights. Your data never leaves your phone.">
+<link rel="canonical" href="https://horizongroup.dev/reach/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Horizon Group">
+<meta property="og:title" content="Reach: Pocket CFO. Now on iOS &amp; Android.">
+<meta property="og:description" content="Budgets, savings goals, debt payoff and cashflow forecasts, logged in seconds and stored only on your phone.">
+<meta property="og:url" content="https://horizongroup.dev/reach/">
+<meta property="og:image" content="https://horizongroup.dev/public/og-reach.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reach: Pocket CFO. Now on iOS &amp; Android.">
+<meta name="twitter:description" content="Budgets, savings goals, debt payoff and cashflow forecasts, logged in seconds and stored only on your phone.">
+<meta name="twitter:image" content="https://horizongroup.dev/public/og-reach.jpg">
+
+<!-- Icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="/public/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/public/icons/apple-touch-icon.png">
+
+<link rel="preload" href="/public/app/hero-home.webp" as="image">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<link rel="preload" href="/public/reach-light-1.png" as="image">
-<link rel="preload" href="/public/reach-light-2.png" as="image">
-<link rel="preload" href="/public/reach-dark-1.png" as="image">
-<link rel="preload" href="/public/reach-dark-2.png" as="image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Reach: Pocket CFO",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "FinanceApplication",
+  "description": "Privacy-first personal finance app: budgets, savings goals, debt payoff, cashflow forecast and monthly insights. Your data stays on your device.",
+  "publisher": { "@type": "Organization", "name": "Horizon Group", "url": "https://horizongroup.dev" },
+  "installUrl": "https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584",
+  "sameAs": [
+    "https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584",
+    "https://play.google.com/store/apps/details?id=com.horizongroup.reach"
+  ],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free to download" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Reach?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Reach is a pocket CFO: a personal finance app for iOS and Android that combines budgets, savings goals, debt payoff plans, cashflow forecasts and monthly insights in one place, with entry fast enough that you actually keep it up." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to connect my bank account?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No, and you can't. Reach never asks for bank credentials. You log transactions yourself in seconds by typing, speaking or scanning, and your financial data stays on your device." }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is my financial data stored?",
+      "acceptedAnswer": { "@type": "Answer", "text": "On your phone. Reach stores your ledger locally on your device rather than on our servers." }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast is logging a transaction?",
+      "acceptedAnswer": { "@type": "Answer", "text": "About three seconds. Type a phrase like \"12 lunch today\" and Reach parses the amount, category and date. You can also speak it, scan a receipt, use a full form, or set it recurring." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Reach available on iPhone and Android?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Reach is live on the Apple App Store and Google Play." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Reach free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Reach is free to download on both stores. Current plans and pricing are shown in the app." }
+    }
+  ]
+}
+</script>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:ital@0;1&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap');
 
   :root {
     --bg: #0A1A1F;
@@ -21,7 +93,7 @@
     --bg-tertiary: #1E3A45;
     --surface: #132830;
     --glass: rgba(30,58,69,0.4);
-    --glass-highlight: rgba(255,255,255,0.15);
+    --glass-strong: rgba(19,40,48,0.82);
     --text-primary: #E5F2F5;
     --text-secondary: #A0C4CE;
     --text-tertiary: #7A9AA8;
@@ -31,8 +103,13 @@
     --accent: #FFB703;
     --accent-light: #FFD166;
     --blue: #00B4D8;
+    --coral: #FF8B7B;
+    --green: #34D399;
+    --violet: #818CF8;
     --border: #1E3A45;
     --border-hover: #2A4F5E;
+    --grad: linear-gradient(110deg, #0D9488 0%, #00B4D8 42%, #F59E0B 100%);
+    --shadow-phone: 0 0 40px rgba(20,184,166,0.12), 0 40px 80px rgba(0,0,0,0.5), 0 15px 30px rgba(0,0,0,0.3);
   }
 
   html[data-theme="light"] {
@@ -40,22 +117,31 @@
     --bg-secondary: #E6F7F7;
     --bg-tertiary: #D1EDED;
     --surface: #FFFFFF;
-    --glass: rgba(255,255,255,0.4);
-    --glass-highlight: rgba(255,255,255,0.8);
+    --glass: rgba(255,255,255,0.5);
+    --glass-strong: rgba(255,255,255,0.85);
     --text-primary: #0F4C5C;
-    --text-secondary: #5A8694;
+    --text-secondary: #48707E;
     --text-tertiary: #7A9AA8;
-    --brand-primary: #14B8A6;
-    --brand-light: #2DD4BF;
-    --brand-dark: #0D9488;
-    --accent: #F59E0B;
-    --accent-light: #FCD34D;
+    --brand-primary: #0D9488;
+    --brand-light: #14B8A6;
+    --brand-dark: #0B7C71;
+    --accent: #B45309;
+    --accent-light: #F59E0B;
     --blue: #0096C7;
+    --coral: #E0604F;
+    --green: #059669;
+    --violet: #6366F1;
     --border: #D1EDED;
-    --border-hover: #CCF0EE;
+    --border-hover: #B5E2DF;
+    --shadow-phone: 0 0 40px rgba(20,184,166,0.08), 0 40px 80px rgba(15,76,92,0.14), 0 15px 30px rgba(15,76,92,0.08);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scrollbar-gutter: stable; }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
 
   body {
     background: var(--bg);
@@ -63,640 +149,852 @@
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
-    width: 100vw;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
+
+  ::selection { background: rgba(20,184,166,0.35); }
 
   #bg-canvas {
     position: fixed;
-    top: 0; left: 0;
+    inset: 0;
     width: 100%; height: 100%;
     z-index: 0;
+    pointer-events: none;
   }
 
   .vignette {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(10,26,31,0.7) 100%);
+    background: radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(10,26,31,0.55) 100%);
+    transition: background 0.4s ease;
+  }
+  html[data-theme="light"] .vignette {
+    background: radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(240,249,249,0.5) 100%);
   }
 
-  .glow-orb {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(100px);
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0;
-    animation: orbFade 2s ease forwards;
-  }
-  .glow-orb--teal {
-    width: 400px; height: 400px;
-    background: rgba(20,184,166,0.08);
-    top: 10%; left: 15%;
-    animation-delay: 0.2s;
-  }
-  .glow-orb--amber {
-    width: 300px; height: 300px;
-    background: rgba(255,183,3,0.05);
-    bottom: 15%; right: 10%;
-    animation-delay: 0.5s;
-  }
-  @keyframes orbFade { to { opacity: 1; } }
+  main { position: relative; z-index: 2; }
 
-  /* Top brand */
-  .top-brand {
-    position: fixed;
-    top: 2rem;
-    width: 100%;
-    text-align: center;
-    z-index: 10;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-primary);
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards 0.3s;
-  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
 
-  .top-brand a {
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .top-brand a:hover {
-    color: var(--brand-light);
-  }
-
-  /* Corner accents */
-  .corner { position: fixed; z-index: 3; pointer-events: none; }
-  .corner--tl { top: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-top: 1px solid var(--brand-dark); border-left: 1px solid var(--brand-dark); }
-  .corner--br { bottom: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid var(--brand-dark); border-right: 1px solid var(--brand-dark); }
-  .corner--tr { top: 1.8rem; right: 1.8rem; width: 28px; height: 28px; border-top: 1px solid rgba(255,183,3,0.2); border-right: 1px solid rgba(255,183,3,0.2); }
-  .corner--bl { bottom: 1.8rem; left: 1.8rem; width: 28px; height: 28px; border-bottom: 1px solid rgba(255,183,3,0.2); border-left: 1px solid rgba(255,183,3,0.2); }
-
-  /* Main content — split layout */
-  .content {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: auto;
-    padding: 10rem 6vw 2rem;
-    gap: 6vw;
-  }
-
-  /* Left side: info only */
-  .left-col {
-    flex: 1;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-
-  /* Waitlist section below hero */
-  .waitlist-section {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 2rem 4rem;
-    margin-top: 2rem;
-  }
-
-  /* Right side: phone */
-  .right-col {
-    flex-shrink: 0;
-    perspective: 1200px;
-    opacity: 0;
-    animation: floatIn 1.4s ease forwards 0.4s;
-  }
-
-  /* Phone mockup — 3D lifted from desk */
-  .phone {
-    width: 300px;
-    height: 650px;
-    border-radius: 36px;
-    border: 2px solid var(--border-hover);
-    background: var(--bg-secondary);
-    overflow: hidden;
-    position: relative;
-    transform: rotateY(-12deg) rotateX(5deg);
-    transform-style: preserve-3d;
-    box-shadow:
-      0 0 40px rgba(20,184,166,0.12),
-      0 40px 80px rgba(0,0,0,0.5),
-      0 15px 30px rgba(0,0,0,0.3),
-      inset 0 0 0 1px rgba(255,255,255,0.06);
-    animation: phoneFloat 5s ease-in-out infinite;
-  }
-
-  /* Shadow on the "desk" beneath the phone */
-  .phone-shadow {
-    width: 220px;
-    height: 30px;
-    background: radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%);
-    margin: 1.2rem auto 0;
-    border-radius: 50%;
-    filter: blur(4px);
-    animation: shadowPulse 5s ease-in-out infinite;
-  }
-
-  .phone-notch {
-    width: 90px;
-    height: 24px;
-    background: var(--bg);
-    border-radius: 0 0 16px 16px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Left side edge */
-  .phone::before {
-    content: '';
-    position: absolute;
-    top: 12px;
-    bottom: 12px;
-    left: -8px;
-    width: 8px;
-    background: linear-gradient(to left, #0f2229, #0a1a1f);
-    border-radius: 4px 0 0 4px;
-    transform: skewY(2deg);
-    z-index: -1;
-    border-top: 1px solid rgba(255,255,255,0.04);
-    border-left: 1px solid rgba(255,255,255,0.03);
-  }
-
-  /* Bottom edge */
-  .phone::after {
-    content: '';
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: -8px;
-    height: 8px;
-    background: linear-gradient(to bottom, #0f2229, #0a1a1f);
-    border-radius: 0 0 4px 4px;
-    transform: skewX(-2deg);
-    z-index: -1;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-  }
-
-  .phone-screen {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .phone-screen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 34px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-  }
-
-  .phone-screen img.active {
-    opacity: 1;
-  }
-
-  @keyframes phoneFloat {
-    0%, 100% { transform: rotateY(-12deg) rotateX(5deg) translateY(0px); }
-    50% { transform: rotateY(-10deg) rotateX(3deg) translateY(-16px); }
-  }
-
-  @keyframes shadowPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
-  }
-
-  @keyframes floatIn {
-    from { opacity: 0; transform: translateY(60px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  /* App info */
-  .app-info {
-    text-align: left;
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards 0.5s;
-  }
-
-  .app-name {
-    font-size: clamp(2.8rem, 5vw, 4rem);
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.6rem;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-light) 60%, var(--accent) 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 8s ease-in-out infinite 2s;
-  }
-
-  .app-tagline {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: 0.8rem;
-  }
-
-  .launch-badge {
+  /* ── Ledger eyebrow (signature) ─────────────────────────── */
+  .ledger-line {
     display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: baseline;
+    gap: 0.75em;
     font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
-    border-radius: 999px;
-    padding: 0.45rem 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .launch-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulseDot 2s ease-in-out infinite;
-  }
-
-  @keyframes pulseDot {
-    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
-    70% { box-shadow: 0 0 0 6px transparent; }
-    100% { box-shadow: 0 0 0 0 transparent; }
-  }
-
-  .app-desc {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
     color: var(--text-tertiary);
-    line-height: 1.7;
-  }
-
-  @keyframes shimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  /* Waitlist */
-  .waitlist {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 420px;
-  }
-
-  .waitlist-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .waitlist-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--text-tertiary);
-    line-height: 1.6;
-    text-align: center;
-    max-width: 360px;
-    margin-top: -0.75rem;
-  }
-
-  .waitlist-hint {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--text-primary);
-    margin-top: -0.5rem;
-  }
-
-  /* Platform cards */
-  .platforms {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .platform-card {
-    flex: 1;
-    max-width: 180px;
-    padding: 1.2rem 1rem;
-    border-radius: 16px;
-    border: 1.5px solid var(--border);
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    position: relative;
-  }
-
-  .platform-card:hover,
-  .platform-card.selected {
-    border-color: var(--brand-primary);
-    box-shadow: 0 0 20px rgba(20,184,166,0.15);
-  }
-
-  .platform-card.selected {
-    background: rgba(20,184,166,0.08);
-  }
-
-  .platform-counter {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-tertiary);
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.05em;
-  }
-
-  .platform-counter span {
-    color: var(--brand-light);
-    font-weight: 600;
-  }
-
-  .platform-icon {
-    font-size: 1.6rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .platform-name {
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--text-primary);
-  }
-
-  /* Email form */
-  .email-form {
-    display: flex;
-    width: 100%;
-    gap: 0;
-    border-radius: 50px;
-    overflow: hidden;
-    border: 1.5px solid var(--border);
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    transition: border-color 0.25s ease;
-  }
-
-  .email-form:focus-within {
-    border-color: var(--brand-primary);
-    box-shadow: 0 0 20px rgba(20,184,166,0.15);
-  }
-
-  .email-form input {
-    flex: 1;
-    padding: 0.9rem 1.4rem;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text-primary);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.82rem;
-  }
-
-  .email-form input::placeholder {
-    color: var(--text-tertiary);
-  }
-
-  .email-form button {
-    padding: 0.9rem 1.6rem;
-    background: linear-gradient(135deg, var(--brand-primary), var(--brand-light));
-    border: none;
-    color: var(--bg);
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.82rem;
-    cursor: pointer;
-    transition: opacity 0.25s ease;
+    margin-bottom: 1.1rem;
     white-space: nowrap;
   }
-
-  .email-form button:hover:not(:disabled) {
-    opacity: 0.9;
+  .ledger-line::before {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: var(--brand-primary);
+    align-self: center;
+    flex: none;
   }
-
-  .email-form button:disabled {
-    background: var(--border);
-    color: var(--text-tertiary);
-    cursor: not-allowed;
-    opacity: 0.6;
+  .ledger-line .amt { color: var(--brand-light); font-weight: 500; }
+  @media (max-width: 700px) {
+    .ledger-line { white-space: normal; flex-wrap: wrap; row-gap: 0.2em; }
   }
+  .ledger-line .amt.up { color: var(--green); }
+  .ledger-line .amt.warm { color: var(--accent-light); }
 
-  .cf-turnstile {
-    margin-top: 0.5rem;
+  /* ── Nav ────────────────────────────────────────────────── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.9rem clamp(1.2rem, 4vw, 3rem);
+    transition: background-color 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+    border-bottom: 1px solid transparent;
   }
-
-  /* Footer */
-  .footer {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding-bottom: 2rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--text-tertiary);
-    letter-spacing: 0.2em;
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards 1.5s;
-    line-height: 2;
+  .nav.scrolled {
+    background: var(--glass-strong);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--border);
   }
-  .footer a {
-    color: var(--text-tertiary);
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
     text-decoration: none;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo img {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.6rem;
+    margin: 0 auto;
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
     transition: color 0.2s ease;
   }
-  .footer a:hover {
-    color: var(--brand-light);
-  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
+  .nav-links + .nav-cta { margin-left: 0; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Responsive */
-  @media (max-width: 900px) {
-    .content {
-      flex-direction: column-reverse;
-      padding: 6rem 2rem 2rem;
-      gap: 2.5rem;
-    }
-    .left-col {
-      align-items: center;
-      max-width: 100%;
-    }
-    .app-info { text-align: center; }
-    .phone {
-      width: 240px;
-      height: 520px;
-    }
-    .phone-shadow { width: 190px; }
-  }
-
-  /* Scroll indicator */
-  .scroll-indicator {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 20;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
+  .store-mini {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px; height: 38px;
+    border-radius: 11px;
     border: 1.5px solid var(--border-hover);
     background: var(--glass);
     backdrop-filter: blur(10px);
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.3s ease, border-color 0.25s ease, transform 0.25s ease;
-    animation: bounceDown 2s ease-in-out infinite;
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  }
+  .store-mini:hover { border-color: var(--brand-primary); color: var(--brand-light); transform: translateY(-1px); }
+  .store-mini svg { width: 18px; height: 18px; }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-cta { margin-left: auto; }
   }
 
-  .scroll-indicator:hover {
-    border-color: var(--brand-primary);
-    transform: scale(1.1);
-  }
-
-  .scroll-indicator svg {
-    width: 20px;
-    height: 20px;
-    color: var(--text-secondary);
-  }
-
-  .scroll-indicator.visible {
-    display: flex;
-  }
-
-  .scroll-indicator.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  @keyframes bounceDown {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
-  }
-
-  /* Theme transitions */
-  body, .vignette, .top-brand, .top-brand a, .footer, .platform-card, .email-form,
-  .email-form input, .app-desc, .app-tagline, .launch-badge, .waitlist-label, .waitlist-hint, .waitlist-sub,
-  .corner--tl, .corner--br, .corner--tr, .corner--bl, .phone, .phone-shadow {
-    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-  }
-  .glow-orb { transition: background 0.4s ease, opacity 0.4s ease; }
-
-  /* Light-mode overrides */
-  html[data-theme="light"] .vignette {
-    background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(240,249,249,0.5) 100%);
-  }
-  html[data-theme="light"] .glow-orb--teal { background: rgba(20,184,166,0.04); }
-  html[data-theme="light"] .glow-orb--amber { background: rgba(245,158,11,0.03); }
-  html[data-theme="light"] .corner--tr { border-color: rgba(245,158,11,0.35); }
-  html[data-theme="light"] .corner--bl { border-color: rgba(245,158,11,0.35); }
-
-  /* Light phone mockup */
-  html[data-theme="light"] .phone {
-    border-color: #CCF0EE;
-    box-shadow:
-      0 0 40px rgba(20,184,166,0.08),
-      0 40px 80px rgba(0,0,0,0.12),
-      0 15px 30px rgba(0,0,0,0.08),
-      inset 0 0 0 1px rgba(0,0,0,0.04);
-  }
-  html[data-theme="light"] .phone::before {
-    background: linear-gradient(to left, #d1eded, #e6f7f7);
-    border-top: 1px solid rgba(0,0,0,0.04);
-    border-left: 1px solid rgba(0,0,0,0.03);
-  }
-  html[data-theme="light"] .phone::after {
-    background: linear-gradient(to bottom, #d1eded, #e6f7f7);
-    border-bottom: 1px solid rgba(0,0,0,0.03);
-  }
-  html[data-theme="light"] .phone-notch {
-    background: var(--bg);
-  }
-  html[data-theme="light"] .phone-shadow {
-    background: radial-gradient(ellipse, rgba(0,0,0,0.1) 0%, transparent 70%);
-  }
-
-  /* Theme toggle button */
+  /* ── Theme toggle ───────────────────────────────────────── */
   .theme-toggle {
-    position: fixed;
-    top: 2rem;
-    right: 4.5rem;
-    z-index: 20;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 38px; height: 38px;
+    border-radius: 11px;
     border: 1.5px solid var(--border-hover);
     background: var(--glass);
     backdrop-filter: blur(10px);
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     transition: border-color 0.25s ease, transform 0.25s ease;
     padding: 0;
+    color: var(--text-secondary);
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
   @media (hover: hover) {
-    .theme-toggle:hover {
-      border-color: var(--brand-primary);
-      transform: scale(1.1);
-    }
+    .theme-toggle:hover { border-color: var(--brand-primary); transform: translateY(-1px); }
   }
   .theme-toggle svg {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 17px; height: 17px;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
-  .theme-toggle .icon-moon { color: var(--text-secondary); opacity: 1; transform: rotate(0deg); }
-  .theme-toggle .icon-sun { color: var(--accent); opacity: 0; transform: rotate(-90deg); }
+  .theme-toggle .icon-moon { opacity: 1; transform: rotate(0deg); }
+  .theme-toggle .icon-sun { color: var(--accent-light); opacity: 0; transform: rotate(-90deg); }
   html[data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg); }
   html[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg); }
 
-  @media (max-width: 600px) {
-    .theme-toggle { top: 1.2rem; right: 1.2rem; }
+  /* ── Store buttons (large) ──────────────────────────────── */
+  .store-buttons { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+  .store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.72rem 1.25rem 0.72rem 1.05rem;
+    border-radius: 14px;
+    border: 1.5px solid var(--border-hover);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+  }
+  .store-btn:hover {
+    border-color: var(--brand-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(20,184,166,0.18);
+  }
+  .store-btn svg { width: 26px; height: 26px; flex: none; }
+  .store-btn .sb-text { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+  .store-btn .sb-hint { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
+  .store-btn .sb-name { font-weight: 700; font-size: 0.98rem; letter-spacing: -0.01em; }
+  .store-btn--solid {
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand-primary));
+    border-color: transparent;
+    color: #F0FDFB;
+  }
+  .store-btn--solid .sb-hint { color: rgba(240,253,251,0.72); }
+  .store-btn--solid:hover { box-shadow: 0 10px 32px rgba(20,184,166,0.35); }
+
+  /* ── Hero ───────────────────────────────────────────────── */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 6vw, 6rem);
+    padding: clamp(7rem, 14vh, 10rem) clamp(1.4rem, 5vw, 4rem) 4rem;
+    min-height: 92vh;
+  }
+  .hero-copy { max-width: 560px; }
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand-light);
+    border: 1px solid color-mix(in srgb, var(--brand-primary) 40%, transparent);
+    background: color-mix(in srgb, var(--brand-primary) 10%, transparent);
+    border-radius: 999px;
+    padding: 0.5rem 1.05rem;
+    margin-bottom: 1.6rem;
+  }
+  .live-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--brand-light);
+    animation: pulseDot 2.2s ease-in-out infinite;
+  }
+  @keyframes pulseDot {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-light) 55%, transparent); }
+    70% { box-shadow: 0 0 0 7px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
   }
 
-  @media (max-width: 480px) {
-    .phone {
-      width: 200px;
-      height: 430px;
-    }
-    .platforms { gap: 0.8rem; }
-    .platform-card { padding: 1rem 0.8rem; }
+  .hero h1 {
+    font-size: clamp(2.7rem, 5.6vw, 4.6rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    margin-bottom: 1.4rem;
   }
+  .hero h1 .grad {
+    background: var(--grad);
+    background-size: 180% 180%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: gradShift 9s ease-in-out infinite;
+  }
+  @keyframes gradShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .hero-sub {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 46ch;
+    margin-bottom: 2.2rem;
+  }
+  .hero-sub strong { color: var(--text-primary); font-weight: 600; }
+  .hero-footnote {
+    margin-top: 1.15rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+  }
+
+  /* Phone mockup */
+  .hero-stage { position: relative; flex-shrink: 0; perspective: 1200px; }
+  .phone {
+    width: clamp(240px, 24vw, 315px);
+    aspect-ratio: 750 / 1630;
+    border-radius: 40px;
+    border: 2px solid var(--border-hover);
+    background: var(--bg-secondary);
+    overflow: hidden;
+    position: relative;
+    transform: rotateY(-10deg) rotateX(4deg);
+    transform-style: preserve-3d;
+    box-shadow: var(--shadow-phone), inset 0 0 0 1px rgba(255,255,255,0.06);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+  }
+  .hero .phone { animation: phoneFloat 6s ease-in-out infinite; }
+  @keyframes phoneFloat {
+    0%, 100% { transform: rotateY(-10deg) rotateX(4deg) translateY(0); }
+    50% { transform: rotateY(-8deg) rotateX(2.5deg) translateY(-14px); }
+  }
+  .phone img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 38px;
+  }
+  .phone-shadow {
+    width: 68%;
+    height: 26px;
+    background: radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%);
+    margin: 1.4rem auto 0;
+    border-radius: 50%;
+    filter: blur(5px);
+    animation: shadowPulse 6s ease-in-out infinite;
+  }
+  html[data-theme="light"] .phone-shadow {
+    background: radial-gradient(ellipse, rgba(15,76,92,0.18) 0%, transparent 70%);
+  }
+  @keyframes shadowPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.88); }
+  }
+
+  /* Floating ledger chips */
+  .chip {
+    position: absolute;
+    z-index: 3;
+    padding: 0.7rem 1rem;
+    border-radius: 14px;
+    border: 1px solid var(--border-hover);
+    background: var(--glass-strong);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+    font-family: 'DM Mono', monospace;
+    white-space: nowrap;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+  }
+  html[data-theme="light"] .chip { box-shadow: 0 14px 40px rgba(15,76,92,0.12); }
+  .chip .c-label {
+    display: block;
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.25rem;
+  }
+  .chip .c-value { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); }
+  .chip .c-value .pos { color: var(--green); }
+  .chip--balance { top: 4%; left: -46%; }
+  .chip--budget { bottom: 20%; left: -42%; }
+  .chip--streak { top: 16%; right: -30%; display: flex; align-items: center; gap: 0.5rem; }
+  .chip--streak svg { width: 16px; height: 16px; color: var(--accent-light); flex: none; }
+  .chip--streak .c-value { font-size: 0.8rem; }
+  @media (max-width: 1100px) { .chip--budget { left: -20%; } .chip--balance { left: -14%; } .chip--streak { right: -12%; } }
+  @media (max-width: 900px) { .chip { display: none; } }
+
+  @media (max-width: 900px) {
+    .hero { flex-direction: column-reverse; text-align: center; padding-top: 6.5rem; min-height: auto; }
+    .hero-copy { display: flex; flex-direction: column; align-items: center; }
+    .hero-sub { max-width: 52ch; }
+    .phone { width: min(64vw, 260px); }
+  }
+
+  /* ── Trust ticker ───────────────────────────────────────── */
+  .ticker {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg-secondary) 55%, transparent);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    padding: 0.95rem 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .ticker-track { display: flex; gap: 3.5rem; width: max-content; animation: tickerScroll 36s linear infinite; }
+  .ticker span { display: inline-flex; align-items: center; gap: 3.5rem; }
+  .ticker i {
+    font-style: normal;
+    color: var(--brand-primary);
+  }
+  @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── Sections common ────────────────────────────────────── */
+  section { position: relative; z-index: 2; scroll-margin-top: 80px; }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(4.5rem, 10vh, 7.5rem) clamp(1.4rem, 5vw, 3rem);
+  }
+  .sec-head { max-width: 640px; margin-bottom: 3.2rem; }
+  .sec-head h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    margin-bottom: 1rem;
+  }
+  .sec-head p { color: var(--text-secondary); line-height: 1.7; font-size: 1.15rem; }
+
+  /* Scroll reveal */
+  .rv { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--d, 0s); }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .rv { opacity: 1; transform: none; transition: none; }
+    .hero .phone, .phone-shadow, .live-dot, .ticker-track, .hero h1 .grad { animation: none !important; }
+  }
+
+  /* ── Feature tabs ───────────────────────────────────────── */
+  .tabs-bar {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.35rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-bottom: 3rem;
+  }
+  .tabs-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    font-weight: 650;
+    font-size: 0.86rem;
+    padding: 0.62rem 1.25rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text-primary); }
+  .tab-btn[aria-selected="true"] {
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand-primary));
+    color: #F0FDFB;
+    box-shadow: 0 4px 18px rgba(20,184,166,0.3);
+  }
+  .tab-btn:focus-visible, .store-btn:focus-visible, .theme-toggle:focus-visible,
+  .store-mini:focus-visible, .to-top:focus-visible, .faq-item summary:focus-visible,
+  .compare input:focus-visible ~ .cmp-handle {
+    outline: 2px solid var(--brand-light);
+    outline-offset: 3px;
+  }
+
+  .tab-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: center;
+  }
+  .tab-copy h3 {
+    font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    margin-bottom: 1.05rem;
+  }
+  .tab-copy > p { color: var(--text-secondary); line-height: 1.75; font-size: 1.08rem; margin-bottom: 1.7rem; max-width: 48ch; }
+  .tab-facts { list-style: none; display: grid; gap: 0.7rem; }
+  .tab-facts li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 0.7rem;
+  }
+  .tab-facts li::before {
+    content: attr(data-k);
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    flex: none;
+    min-width: 7.5em;
+  }
+  .tab-facts li b { font-weight: 500; color: var(--text-primary); }
+
+  .tab-stage { display: flex; flex-direction: column; align-items: center; }
+  .tab-stage .phone { transform: rotateY(7deg) rotateX(2deg); }
+  .tab-stage .phone img { opacity: 0; transition: opacity 0.55s ease; }
+  .tab-stage .phone img.active { opacity: 1; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: panelIn 0.5s ease; }
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .tab-panel.active { animation: none; } }
+
+  @media (max-width: 900px) {
+    .tab-layout { grid-template-columns: 1fr; }
+    .tab-stage { order: -1; }
+    .tab-stage .phone { width: min(58vw, 250px); }
+  }
+
+  /* ── Quick entry ────────────────────────────────────────── */
+  .entry-band { background: color-mix(in srgb, var(--bg-secondary) 62%, transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); backdrop-filter: blur(6px); }
+  .entry-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: center;
+  }
+  .entry-demo {
+    border: 1.5px solid var(--border-hover);
+    border-radius: 20px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(16px);
+    padding: 1.6rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+    max-width: 460px;
+  }
+  html[data-theme="light"] .entry-demo { box-shadow: 0 24px 60px rgba(15,76,92,0.1); }
+  .entry-demo .d-title {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-size: 1.05rem;
+    margin-bottom: 1.1rem;
+  }
+  .fake-input {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--border-hover);
+    border-radius: 14px;
+    background: var(--bg);
+    padding: 0.95rem 1.15rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    min-height: 3.2rem;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+  }
+  .fake-input .caret {
+    width: 2px; height: 1.15em;
+    background: var(--brand-light);
+    margin-left: 2px;
+    animation: caretBlink 1.05s steps(1) infinite;
+  }
+  @keyframes caretBlink { 50% { opacity: 0; } }
+  .parsed-chip {
+    margin-top: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    border: 1.5px solid color-mix(in srgb, var(--brand-primary) 45%, transparent);
+    background: color-mix(in srgb, var(--brand-primary) 9%, transparent);
+    border-radius: 14px;
+    padding: 0.8rem 1.05rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+    transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .parsed-chip.show { opacity: 1; transform: none; }
+  .parsed-chip svg { width: 17px; height: 17px; color: var(--brand-light); flex: none; }
+  .parsed-chip .p-amt { font-weight: 500; }
+  .parsed-chip .p-amt.neg { color: var(--coral); }
+  .parsed-chip .p-amt.pos { color: var(--green); }
+  .parsed-chip .p-cat { color: var(--text-tertiary); font-size: 0.76rem; }
+  .entry-modes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.5rem;
+  }
+  .mode-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.42rem 0.85rem;
+  }
+  .mode-pill svg { width: 13px; height: 13px; color: var(--brand-primary); }
+  .entry-stage { display: flex; justify-content: center; }
+  .entry-stage .phone { transform: rotateY(-8deg) rotateX(3deg); }
+  @media (max-width: 900px) {
+    .entry-layout { grid-template-columns: 1fr; }
+    .entry-stage { order: -1; }
+    .entry-stage .phone { width: min(58vw, 250px); }
+    .entry-demo { max-width: 100%; }
+  }
+
+  /* ── Privacy ────────────────────────────────────────────── */
+  .privacy-band { text-align: center; }
+  .privacy-band .sec-head { margin: 0 auto 3rem; }
+  .privacy-band .ledger-line { justify-content: center; }
+  .privacy-ledger {
+    max-width: 620px;
+    margin: 0 auto;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    padding: 0.6rem 1.6rem;
+    text-align: left;
+  }
+  .privacy-ledger dl { display: block; }
+  .privacy-ledger .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding: 1.05rem 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.98rem;
+  }
+  .privacy-ledger .row + .row { border-top: 1px dashed var(--border); }
+  .privacy-ledger dt { color: var(--text-secondary); }
+  .privacy-ledger dd { color: var(--brand-light); font-weight: 500; text-align: right; }
+  .privacy-note {
+    margin: 1.6rem auto 0;
+    max-width: 52ch;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--text-tertiary);
+  }
+
+  /* ── Themes / compare ───────────────────────────────────── */
+  .themes-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .compare {
+    position: relative;
+    width: clamp(240px, 24vw, 315px);
+    aspect-ratio: 750 / 1630;
+    border-radius: 40px;
+    border: 2px solid var(--border-hover);
+    overflow: hidden;
+    box-shadow: var(--shadow-phone);
+    margin: 0 auto;
+    touch-action: pan-y;
+  }
+  .compare img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+  .compare .cmp-top { clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); }
+  .cmp-handle {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: var(--x, 50%);
+    width: 2px;
+    background: var(--brand-light);
+    pointer-events: none;
+    box-shadow: 0 0 14px rgba(45,212,191,0.7);
+  }
+  .cmp-handle::after {
+    content: '⇄';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--glass-strong);
+    border: 1.5px solid var(--brand-light);
+    backdrop-filter: blur(10px);
+    color: var(--brand-light);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .compare input {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    margin: 0;
+  }
+  .cmp-tags {
+    display: flex;
+    justify-content: space-between;
+    width: clamp(240px, 24vw, 315px);
+    margin: 0.9rem auto 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .theme-notes { list-style: none; display: grid; gap: 0.7rem; margin-top: 1.7rem; }
+  .theme-notes li {
+    display: flex; align-items: baseline; gap: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 0.7rem;
+  }
+  .theme-notes li::before {
+    content: attr(data-k);
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    flex: none;
+    min-width: 7.5em;
+  }
+  @media (max-width: 900px) { .themes-layout { grid-template-columns: 1fr; } }
+
+  /* ── Moments ────────────────────────────────────────────── */
+  .moments-band { background: color-mix(in srgb, var(--bg-secondary) 62%, transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .moments-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+    align-items: center;
+  }
+  .moments-stage { display: flex; justify-content: center; }
+  .moments-stage .phone { transform: rotateY(8deg) rotateX(2deg); }
+  @media (max-width: 900px) {
+    .moments-layout { grid-template-columns: 1fr; }
+    .moments-stage { order: -1; }
+    .moments-stage .phone { width: min(58vw, 250px); }
+  }
+
+  /* ── FAQ ────────────────────────────────────────────────── */
+  .faq-list { max-width: 720px; }
+  .faq-item {
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+  }
+  .faq-item[open] { border-color: var(--border-hover); }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    font-weight: 650;
+    font-size: 1.05rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-family: 'DM Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--brand-light);
+    transition: transform 0.25s ease;
+    flex: none;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item .faq-a {
+    padding: 0 1.4rem 1.25rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 60ch;
+  }
+
+  /* ── CTA ────────────────────────────────────────────────── */
+  .cta-panel {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    padding: clamp(3rem, 7vw, 5rem) clamp(1.6rem, 5vw, 4rem);
+    background:
+      linear-gradient(115deg, rgba(13,148,136,0.92) 0%, rgba(0,140,190,0.88) 46%, rgba(217,144,10,0.88) 100%),
+      var(--bg-secondary);
+    color: #F0FDFB;
+    text-align: center;
+  }
+  .cta-panel .ledger-line { color: rgba(240,253,251,0.75); justify-content: center; }
+  .cta-panel .ledger-line::before { background: rgba(240,253,251,0.7); }
+  .cta-panel .ledger-line .amt { color: #FFE9B3; }
+  .cta-panel h2 {
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin-bottom: 1.1rem;
+  }
+  .cta-panel p { color: rgba(240,253,251,0.85); max-width: 44ch; margin: 0 auto 2.2rem; line-height: 1.7; }
+  .cta-panel .store-buttons { justify-content: center; }
+  .cta-panel .store-btn {
+    background: rgba(10,26,31,0.35);
+    border-color: rgba(240,253,251,0.35);
+    color: #F0FDFB;
+    backdrop-filter: blur(8px);
+  }
+  .cta-panel .store-btn .sb-hint { color: rgba(240,253,251,0.7); }
+  .cta-panel .store-btn:hover { border-color: #F0FDFB; box-shadow: 0 10px 32px rgba(10,26,31,0.35); }
+
+  /* ── Footer ─────────────────────────────────────────────── */
+  .footer {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid var(--border);
+    padding: 2.6rem clamp(1.4rem, 5vw, 3rem) 2.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.4rem 2.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+  }
+  .footer nav { display: flex; flex-wrap: wrap; gap: 1.4rem; }
+  .footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s ease; }
+  .footer a:hover { color: var(--brand-light); }
+  .footer .f-brand { display: flex; align-items: center; gap: 0.6rem; color: var(--text-secondary); }
+  .footer .f-brand img { width: 22px; height: 22px; border-radius: 6px; }
+  .footer .f-copy { margin-left: auto; }
+  @media (max-width: 700px) { .footer .f-copy { margin-left: 0; } }
+
+  /* ── Scroll to top ──────────────────────────────────────── */
+  .to-top {
+    position: fixed;
+    bottom: 1.8rem; right: 1.8rem;
+    z-index: 60;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-hover);
+    background: var(--glass-strong);
+    backdrop-filter: blur(12px);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
+  .to-top:hover { border-color: var(--brand-primary); color: var(--brand-light); }
+  .to-top svg { width: 19px; height: 19px; }
 </style>
 <script>
 (function() {
@@ -707,371 +1005,649 @@
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
 
-<div class="glow-orb glow-orb--teal"></div>
-<div class="glow-orb glow-orb--amber"></div>
+<header class="nav" id="nav">
+  <a class="nav-logo" href="/reach/" aria-label="Reach home">
+    <img src="/public/icons/logo-128.png" alt="" width="30" height="30">
+    Reach
+  </a>
+  <nav class="nav-links" aria-label="Page sections">
+    <a href="#features">Features</a>
+    <a href="#entry">Quick entry</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#themes">Themes</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="nav-cta">
+    <a class="store-mini" href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584" aria-label="Download Reach on the App Store">
+      <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+    </a>
+    <a class="store-mini" href="https://play.google.com/store/apps/details?id=com.horizongroup.reach" aria-label="Get Reach on Google Play">
+      <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+    </a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark mode">
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+  </div>
+</header>
 
-<div class="vignette"></div>
+<main>
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="live-badge rv"><span class="live-dot"></span>Now live on iOS &amp; Android</p>
+      <h1 class="rv" style="--d:.06s">The CFO in<br>your <span class="grad">pocket</span>.</h1>
+      <p class="hero-sub rv" style="--d:.12s">Budget, goals, debts and what's coming next, from entries logged in <strong>three seconds</strong>. <strong>No bank logins.</strong> Your data stays on your phone.</p>
+      <div class="store-buttons rv" style="--d:.18s">
+        <a class="store-btn store-btn--solid" href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584">
+          <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <span class="sb-text"><span class="sb-hint">Download on the</span><span class="sb-name">App Store</span></span>
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.horizongroup.reach">
+          <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+          <span class="sb-text"><span class="sb-hint">Get it on</span><span class="sb-name">Google Play</span></span>
+        </a>
+      </div>
+      <p class="hero-footnote rv" style="--d:.24s">free to download · no account required · works offline</p>
+    </div>
 
-<div class="corner corner--tl"></div>
-<div class="corner corner--br"></div>
-<div class="corner corner--tr"></div>
-<div class="corner corner--bl"></div>
+    <div class="hero-stage rv" style="--d:.15s">
+      <div class="chip chip--balance" data-parallax="0.35" aria-hidden="true">
+        <span class="c-label">Available balance</span>
+        <span class="c-value">$21,013.41</span>
+      </div>
+      <div class="chip chip--budget" data-parallax="-0.25" aria-hidden="true">
+        <span class="c-label">Budget · 9 days left</span>
+        <span class="c-value"><span class="pos">$917.29</span> to spend</span>
+      </div>
+      <div class="chip chip--streak" data-parallax="0.2" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 0.67s0.74 2.65 0.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l0.03-0.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-0.36 3.6-1.21 4.62-2.58 0.39 1.29 0.59 2.65 0.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+        <span class="c-value">13-day streak</span>
+      </div>
+      <div class="phone" data-parallax="0.08">
+        <img src="/public/app/hero-home.webp" alt="Reach home screen showing available balance, income and expenses, forecast and budget cards" width="750" height="1630" fetchpriority="high">
+      </div>
+      <div class="phone-shadow" aria-hidden="true"></div>
+    </div>
+  </section>
 
-<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
-  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  <!-- ── Trust ticker ── -->
+  <div class="ticker" aria-label="Reach principles">
+    <div class="ticker-track">
+      <span>No bank linking <i>·</i> Data stays on your device <i>·</i> Works offline <i>·</i> Log entries in 3 seconds <i>·</i> iOS + Android <i>·</i> Light + dark themes <i>·</i></span>
+      <span aria-hidden="true">No bank linking <i>·</i> Data stays on your device <i>·</i> Works offline <i>·</i> Log entries in 3 seconds <i>·</i> iOS + Android <i>·</i> Light + dark themes <i>·</i></span>
+    </div>
+  </div>
+
+  <!-- ── Feature tabs ── -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="ledger-line">one ledger <span class="amt">· five views of the same money</span></p>
+        <h2>Everything a CFO would tell you, about your own money.</h2>
+        <p>Five views of one ledger, filled in seconds.</p>
+      </div>
+
+      <div class="tabs-bar rv" role="tablist" aria-label="Reach features">
+        <button class="tab-btn" id="tab-budget" role="tab" aria-selected="true" aria-controls="panel-budget">Budget</button>
+        <button class="tab-btn" id="tab-goals" role="tab" aria-selected="false" aria-controls="panel-goals" tabindex="-1">Savings goals</button>
+        <button class="tab-btn" id="tab-debt" role="tab" aria-selected="false" aria-controls="panel-debt" tabindex="-1">Debt</button>
+        <button class="tab-btn" id="tab-forecast" role="tab" aria-selected="false" aria-controls="panel-forecast" tabindex="-1">Forecast</button>
+        <button class="tab-btn" id="tab-insights" role="tab" aria-selected="false" aria-controls="panel-insights" tabindex="-1">Insights</button>
+      </div>
+
+      <div class="tab-layout rv">
+        <div class="tab-copy">
+          <div class="tab-panel active" id="panel-budget" role="tabpanel" aria-labelledby="tab-budget">
+            <p class="ledger-line">budget <span class="amt up">· $1,317.29 free to spend</span></p>
+            <h3>A budget that tells you what's left, not what you did wrong.</h3>
+            <p>One gauge answers the mid-month question: how much can I still spend?</p>
+            <ul class="tab-facts">
+              <li data-k="headline"><b>Free to Spend</b>, front and centre</li>
+              <li data-k="pace">days left in the month, at a glance</li>
+              <li data-k="categories">per-category limits with quiet progress bars</li>
+            </ul>
+          </div>
+          <div class="tab-panel" id="panel-goals" role="tabpanel" aria-labelledby="tab-goals">
+            <p class="ledger-line">savings <span class="amt up">· 57% of $13,500 saved</span></p>
+            <h3>Name the goal. Watch it fill.</h3>
+            <p>Emergency fund, new laptop, that trip. Each goal gets its own progress bar, plus one ring for the total.</p>
+            <ul class="tab-facts">
+              <li data-k="per goal">its own bar, target and pace</li>
+              <li data-k="overall">one ring for total progress</li>
+              <li data-k="milestones">small wins celebrated as you pass them</li>
+            </ul>
+          </div>
+          <div class="tab-panel" id="panel-debt" role="tabpanel" aria-labelledby="tab-debt">
+            <p class="ledger-line">debt <span class="amt warm">· debt-free by Apr 2035</span></p>
+            <h3>A payoff plan, not a guilt trip.</h3>
+            <p>Every debt on one screen, a projected debt-free date, and one flagged debt to focus on next.</p>
+            <ul class="tab-facts">
+              <li data-k="overview">% paid off across everything you owe</li>
+              <li data-k="strategy">smallest-first or highest-rate</li>
+              <li data-k="focus">one flagged debt to pay down first</li>
+            </ul>
+          </div>
+          <div class="tab-panel" id="panel-forecast" role="tabpanel" aria-labelledby="tab-forecast">
+            <p class="ledger-line">forecast <span class="amt">· your balance, 30 days out</span></p>
+            <h3>See what's coming before it lands.</h3>
+            <p>Your balance projected up to a year ahead, from the bills and income you already know about.</p>
+            <ul class="tab-facts">
+              <li data-k="horizon">7d · 14d · 30d · 90d · 180d · 1y</li>
+              <li data-k="coming up">every scheduled bill, dated and priced</li>
+              <li data-k="projection">past line meets projected line, today</li>
+            </ul>
+          </div>
+          <div class="tab-panel" id="panel-insights" role="tabpanel" aria-labelledby="tab-insights">
+            <p class="ledger-line">recap <span class="amt up">· 64% savings rate, best month</span></p>
+            <h3>Your month, told back to you.</h3>
+            <p>Weekly and monthly recaps: what you earned, spent and kept, and where it went.</p>
+            <ul class="tab-facts">
+              <li data-k="you saved">the month's headline number</li>
+              <li data-k="running">money in minus money out, day by day</li>
+              <li data-k="where it went">ranked categories vs your average</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-stage">
+          <div class="phone">
+            <img src="/public/app/budget.webp" data-tab="budget" class="active" alt="Reach budget screen with Free to Spend gauge showing $1,317.29 of $2,150 budget and category progress bars" width="750" height="1630">
+            <img src="/public/app/goals.webp" data-tab="goals" alt="Reach savings goals screen with total progress ring at 57% and goals for laptop, emergency fund and vacation" width="750" height="1630" loading="lazy">
+            <img src="/public/app/debt.webp" data-tab="debt" alt="Reach debt payoff screen showing 19% paid off, debt-free date and repayment strategy options" width="750" height="1630" loading="lazy">
+            <img src="/public/app/forecast.webp" data-tab="forecast" alt="Reach forecast screen projecting account balance 30 days ahead with upcoming bills" width="750" height="1630" loading="lazy">
+            <img src="/public/app/insights.webp" data-tab="insights" alt="Reach monthly recap showing $3,175 saved, 64% savings rate and running savings chart" width="750" height="1630" loading="lazy">
+          </div>
+          <div class="phone-shadow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Quick entry ── -->
+  <section id="entry" class="entry-band">
+    <div class="wrap">
+      <div class="entry-layout">
+        <div>
+          <div class="sec-head rv" style="margin-bottom:1.8rem">
+            <p class="ledger-line">entry logged <span class="amt">· 3 seconds</span></p>
+            <h2>Log it before the receipt hits the table.</h2>
+            <p>Type it like you'd say it. Reach parses the amount, category and date.</p>
+          </div>
+          <div class="entry-demo rv" style="--d:.1s">
+            <p class="d-title">Add a transaction</p>
+            <div class="fake-input" aria-hidden="true"><span id="type-target"></span><span class="caret"></span></div>
+            <div class="parsed-chip" id="parsed-chip" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/></svg>
+              <span class="p-amt neg" id="parsed-amt">−$12.00</span>
+              <span id="parsed-desc">lunch</span>
+              <span class="p-cat" id="parsed-cat">Food &amp; Dining · today</span>
+            </div>
+            <div class="entry-modes" aria-label="Five ways to log: voice, scan, quick text, form, recurring">
+              <span class="mode-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path stroke-linecap="round" d="M5 10v1a7 7 0 0014 0v-1M12 18v4"/></svg>Voice</span>
+              <span class="mode-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2M7 12h10"/></svg>Scan</span>
+              <span class="mode-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Quick</span>
+              <span class="mode-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M9 8h6M5 3h14a1 1 0 011 1v16a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z"/></svg>Form</span>
+              <span class="mode-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 2l4 4-4 4M3 11v-1a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v1a4 4 0 01-4 4H3"/></svg>Recurring</span>
+            </div>
+          </div>
+        </div>
+        <div class="entry-stage rv" style="--d:.14s">
+          <div>
+            <div class="phone" data-parallax="0.06">
+              <img src="/public/app/quickentry.webp" alt="Reach add-transaction sheet parsing the phrase '12 lunch today' into a ready expense, with voice, scan, quick, form and recurring options" width="750" height="1630" loading="lazy">
+            </div>
+            <div class="phone-shadow" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Privacy ── -->
+  <section id="privacy" class="privacy-band">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="ledger-line">data shared <span class="amt">· none</span></p>
+        <h2>Your money never leaves your phone.</h2>
+        <p>Reach is built the old-fashioned way: it simply never asks for the keys.</p>
+      </div>
+      <div class="privacy-ledger rv" style="--d:.08s">
+        <dl>
+          <div class="row"><dt>bank credentials</dt><dd>never asked for</dd></div>
+          <div class="row"><dt>your ledger</dt><dd>stored on your device</dd></div>
+          <div class="row"><dt>account signup</dt><dd>not required</dd></div>
+          <div class="row"><dt>internet connection</dt><dd>optional, works offline</dd></div>
+          <div class="row"><dt>selling your data</dt><dd>nothing to sell</dd></div>
+        </dl>
+      </div>
+      <p class="privacy-note rv" style="--d:.14s">No aggregator reads your transactions. No third party holds your history. Full detail in the <a href="/reach/privacy/" style="color:var(--brand-light)">privacy policy</a>.</p>
+    </div>
+  </section>
+
+  <!-- ── Themes ── -->
+  <section id="themes">
+    <div class="wrap">
+      <div class="themes-layout">
+        <div>
+          <div class="sec-head rv" style="margin-bottom:0">
+            <p class="ledger-line">appearance <span class="amt">· light ⇄ dark</span></p>
+            <h2>Calm at noon. Calmer at midnight.</h2>
+            <p>A warm cream light mode and a deep navy-teal dark mode. Follow the system or pick a side.</p>
+          </div>
+          <ul class="theme-notes rv" style="--d:.08s">
+            <li data-k="modes">light · dark · follow system</li>
+            <li data-k="families">Caribbean (signature) · Pulse</li>
+            <li data-k="this site">try the toggle in the corner, same idea</li>
+          </ul>
+        </div>
+        <div class="rv" style="--d:.12s">
+          <div class="compare" id="compare">
+            <img src="/public/app/home-dark.webp" alt="Reach home screen in dark mode" width="750" height="1630" loading="lazy">
+            <img class="cmp-top" src="/public/app/home-light.webp" alt="Reach home screen in light mode" width="750" height="1630" loading="lazy">
+            <div class="cmp-handle" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Drag to compare light and dark themes">
+          </div>
+          <div class="cmp-tags" aria-hidden="true"><span>light</span><span>dark</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Money Moments ── -->
+  <section id="moments" class="moments-band">
+    <div class="wrap">
+      <div class="moments-layout">
+        <div class="moments-stage rv">
+          <div>
+            <div class="phone" data-parallax="0.06">
+              <img src="/public/app/moment.webp" alt="Reach Money Moment card in dark mode showing upcoming bills for the next two weeks and spending pace" width="750" height="1630" loading="lazy">
+            </div>
+            <div class="phone-shadow" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="sec-head rv" style="--d:.08s; margin-bottom:0">
+          <p class="ledger-line">streak <span class="amt warm">· day 13</span></p>
+          <h2>One calm minute a day.</h2>
+          <p>Each day Reach hands you one Money Moment: bills ahead, spending pace, a small win. Read it, tap “Noted”, done. That's how the habit sticks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="ledger-line">questions <span class="amt">· answered</span></p>
+        <h2>Fair questions.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item rv">
+          <summary>What is Reach?</summary>
+          <p class="faq-a">A pocket CFO: one app that keeps your budget, savings goals, debt payoff plan, cashflow forecast and monthly insights in a single ledger, with entry fast enough that you actually keep it up.</p>
+        </details>
+        <details class="faq-item rv" style="--d:.05s">
+          <summary>Do I need to connect my bank account?</summary>
+          <p class="faq-a">No, and you can't. Reach never asks for bank credentials. You log transactions yourself in seconds by typing, speaking or scanning, and your financial data stays on your device.</p>
+        </details>
+        <details class="faq-item rv" style="--d:.1s">
+          <summary>Where is my financial data stored?</summary>
+          <p class="faq-a">On your phone. Reach stores your ledger locally on your device rather than on our servers. The <a href="/reach/privacy/" style="color:var(--brand-light)">privacy policy</a> has the full detail.</p>
+        </details>
+        <details class="faq-item rv" style="--d:.15s">
+          <summary>How fast is logging a transaction?</summary>
+          <p class="faq-a">About three seconds. Type “12 lunch today” and Reach parses the amount, category and date. You can also speak it, scan a receipt, use a full form, or set it recurring so it logs itself.</p>
+        </details>
+        <details class="faq-item rv" style="--d:.2s">
+          <summary>Is Reach available on iPhone and Android?</summary>
+          <p class="faq-a">Yes. Reach is live on the <a href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584" style="color:var(--brand-light)">App Store</a> and <a href="https://play.google.com/store/apps/details?id=com.horizongroup.reach" style="color:var(--brand-light)">Google Play</a>.</p>
+        </details>
+        <details class="faq-item rv" style="--d:.25s">
+          <summary>Is Reach free?</summary>
+          <p class="faq-a">Free to download on both stores. Current plans and pricing are shown in the app.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section id="get">
+    <div class="wrap">
+      <div class="cta-panel rv">
+        <p class="ledger-line">next entry <span class="amt">· yours</span></p>
+        <h2>Start your ledger tonight.</h2>
+        <p>Log your first expense in three seconds. The CFO in your pocket takes it from there.</p>
+        <div class="store-buttons">
+          <a class="store-btn" href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584">
+            <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span class="sb-text"><span class="sb-hint">Download on the</span><span class="sb-name">App Store</span></span>
+          </a>
+          <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.horizongroup.reach">
+            <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+            <span class="sb-text"><span class="sb-hint">Get it on</span><span class="sb-name">Google Play</span></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span class="f-brand"><img src="/public/icons/logo-128.png" alt="" width="22" height="22">Reach by <a href="/">Horizon Group</a></span>
+  <nav aria-label="Legal and support">
+    <a href="/reach/privacy/">Privacy</a>
+    <a href="/reach/terms/">Terms</a>
+    <a href="/reach/support/">Support</a>
+    <a href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584">App Store</a>
+    <a href="https://play.google.com/store/apps/details?id=com.horizongroup.reach">Google Play</a>
+  </nav>
+  <span class="f-copy">&copy; 2026 Horizon Group · All rights reserved</span>
+</footer>
+
+<button class="to-top" id="to-top" aria-label="Scroll back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
 </button>
-
-<div class="top-brand"><a href="/">Horizon Group</a></div>
-
-<div class="content">
-  <div class="left-col">
-    <div class="app-info">
-      <h1 class="app-name">Reach</h1>
-      <p class="app-tagline">Budgeting App</p>
-      <div class="launch-badge"><span class="launch-dot"></span>Launching soon &mdash; iOS &amp; Android</div>
-      <p class="app-desc">Privacy-first. Effortless to use.<br>Your money, your data.</p>
-    </div>
-
-  </div>
-
-  <div class="right-col">
-    <div class="phone">
-      <div class="phone-screen" id="phone-slideshow">
-        <img src="/public/reach-dark-1.jpeg" data-dark-src="/public/reach-dark-1.jpeg" data-light-src="/public/reach-light-1.jpeg" alt="Reach App - Home" class="active">
-        <img src="/public/reach-dark-2.jpeg" data-dark-src="/public/reach-dark-2.jpeg" data-light-src="/public/reach-light-2.jpeg" alt="Reach App - Ledger">
-        <img src="/public/reach-dark-3.jpeg" data-dark-src="/public/reach-dark-3.jpeg" data-light-src="/public/reach-light-3.jpeg" alt="Reach App - Plan">
-        <img src="/public/reach-dark-4.jpeg" data-dark-src="/public/reach-dark-4.jpeg" data-light-src="/public/reach-light-4.jpeg" alt="Reach App - Budget">
-        <img src="/public/reach-dark-5.jpeg" data-dark-src="/public/reach-dark-5.jpeg" data-light-src="/public/reach-light-5.jpeg" alt="Reach App - Goal">
-      </div>
-    </div>
-    <div class="phone-shadow"></div>
-  </div>
-</div>
-
-<div class="waitlist-section">
-  <div class="waitlist">
-    <div class="waitlist-label">Get notified at launch</div>
-    <p class="waitlist-sub">Reach is launching soon on the App Store and Google Play &mdash; join the waitlist to be first in.</p>
-    <p class="waitlist-hint">Select your platform:</p>
-
-    <div class="platforms">
-      <div class="platform-card" data-platform="ios" onclick="selectPlatform(this)">
-        <div class="platform-icon"><i class="fa-brands fa-apple"></i></div>
-        <div class="platform-name">iOS</div>
-      </div>
-      <div class="platform-card" data-platform="android" onclick="selectPlatform(this)">
-        <div class="platform-icon"><i class="fa-brands fa-android"></i></div>
-        <div class="platform-name">Android</div>
-      </div>
-    </div>
-
-    <form class="email-form" onsubmit="handleSubmit(event)">
-      <input type="email" placeholder="your@email.com" required>
-      <button type="submit">Join</button>
-    </form>
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAACs4Xw0w0RftSzIt" data-theme="dark" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired"></div>
-  </div>
-</div>
-
-<button class="scroll-indicator" id="scroll-indicator" onclick="document.querySelector('.waitlist-section').scrollIntoView({behavior:'smooth'})" aria-label="Scroll to waitlist">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-</button>
-
-<div class="footer"><a href="/reach/privacy/">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="/reach/terms/">Terms of Service</a> &nbsp;&middot;&nbsp; <a href="/reach/support/">Support</a><br>&copy; 2026 Horizon Group &mdash; All rights reserved</div>
 
 <script>
-// ─── Theme Toggle ───
-var currentTheme = localStorage.getItem('horizon-theme') || 'dark';
+'use strict';
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function updatePhoneScreenshots(theme) {
-  var imgs = document.querySelectorAll('#phone-slideshow img');
-  var attr = theme === 'light' ? 'data-light-src' : 'data-dark-src';
-  imgs.forEach(function(img) {
-    var src = img.getAttribute(attr);
-    if (src) img.src = src;
+// ─── Theme ───
+let currentTheme = localStorage.getItem('horizon-theme') || 'dark';
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  else document.documentElement.removeAttribute('data-theme');
+  localStorage.setItem('horizon-theme', theme);
+  updateSceneTheme(theme);
+}
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
+
+// ─── Nav scrolled state + scroll-to-top ───
+const nav = document.getElementById('nav');
+const toTop = document.getElementById('to-top');
+function onScroll() {
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 24);
+  toTop.classList.toggle('show', y > 600);
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' }));
+
+// ─── Scroll reveals ───
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
   });
+}, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// ─── Parallax ───
+const pxEls = Array.from(document.querySelectorAll('[data-parallax]')).map(el => ({
+  el, rate: parseFloat(el.dataset.parallax)
+}));
+if (!REDUCED && pxEls.length) {
+  let ticking = false;
+  function parallax() {
+    const vh = window.innerHeight;
+    pxEls.forEach(({ el, rate }) => {
+      const r = el.getBoundingClientRect();
+      const mid = r.top + r.height / 2 - vh / 2;
+      el.style.transform = 'translate3d(0,' + (-mid * rate * 0.12).toFixed(1) + 'px,0)';
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(parallax); ticking = true; }
+  }, { passive: true });
+  parallax();
 }
 
+// ─── Feature tabs ───
+const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
+const tabImgs = Array.from(document.querySelectorAll('.tab-stage .phone img'));
+function selectTab(btn) {
+  const key = btn.id.replace('tab-', '');
+  tabButtons.forEach(b => {
+    const on = b === btn;
+    b.setAttribute('aria-selected', on);
+    b.tabIndex = on ? 0 : -1;
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'panel-' + key);
+  });
+  tabImgs.forEach(img => img.classList.toggle('active', img.dataset.tab === key));
+}
+tabButtons.forEach((btn, i) => {
+  btn.addEventListener('click', () => selectTab(btn));
+  btn.addEventListener('keydown', e => {
+    let j = null;
+    if (e.key === 'ArrowRight') j = (i + 1) % tabButtons.length;
+    if (e.key === 'ArrowLeft') j = (i - 1 + tabButtons.length) % tabButtons.length;
+    if (e.key === 'Home') j = 0;
+    if (e.key === 'End') j = tabButtons.length - 1;
+    if (j !== null) { e.preventDefault(); tabButtons[j].focus(); selectTab(tabButtons[j]); }
+  });
+});
+
+// ─── Quick-entry typing demo ───
+(function () {
+  const target = document.getElementById('type-target');
+  const chip = document.getElementById('parsed-chip');
+  const amt = document.getElementById('parsed-amt');
+  const desc = document.getElementById('parsed-desc');
+  const cat = document.getElementById('parsed-cat');
+  const demos = [
+    { text: '12 lunch today', amt: '−$12.00', neg: true, desc: 'lunch', cat: 'Food & Dining · today' },
+    { text: 'coffee 4.50', amt: '−$4.50', neg: true, desc: 'coffee', cat: 'Food & Dining · today' },
+    { text: 'got paid 2200', amt: '+$2,200.00', neg: false, desc: 'salary', cat: 'Income · today' },
+    { text: '60 gas yesterday', amt: '−$60.00', neg: true, desc: 'gas', cat: 'Transportation · yesterday' },
+  ];
+  if (REDUCED) {
+    target.textContent = demos[0].text;
+    chip.classList.add('show');
+    return;
+  }
+  let d = 0, started = false;
+  function run() {
+    const demo = demos[d];
+    let i = 0;
+    chip.classList.remove('show');
+    target.textContent = '';
+    const typer = setInterval(() => {
+      target.textContent = demo.text.slice(0, ++i);
+      if (i >= demo.text.length) {
+        clearInterval(typer);
+        setTimeout(() => {
+          amt.textContent = demo.amt;
+          amt.className = 'p-amt ' + (demo.neg ? 'neg' : 'pos');
+          desc.textContent = demo.desc;
+          cat.textContent = demo.cat;
+          chip.classList.add('show');
+          d = (d + 1) % demos.length;
+          setTimeout(run, 2600);
+        }, 420);
+      }
+    }, 65);
+  }
+  const demoIo = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !started) { started = true; run(); demoIo.disconnect(); }
+  }, { threshold: 0.4 });
+  demoIo.observe(chip.parentElement);
+})();
+
+// ─── Theme compare slider ───
+(function () {
+  const box = document.getElementById('compare');
+  const range = box.querySelector('input');
+  function setX(v) { box.style.setProperty('--x', v + '%'); }
+  range.addEventListener('input', () => setX(range.value));
+  setX(range.value);
+})();
+
+// ─── Three.js particle field ───
+const canvas = document.getElementById('bg-canvas');
+let renderer, particleMat;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+} catch (e) { /* WebGL unavailable — page works without it */ }
+
 function updateSceneTheme(theme) {
-  if (typeof renderer === 'undefined') return;
+  if (!renderer || !particleMat) return;
   if (theme === 'light') {
     renderer.setClearColor(0xF0F9F9, 1);
     particleMat.blending = THREE.NormalBlending;
-    particleMat.uniforms.uThemeAlpha.value = 0.55;
-    particleMat.needsUpdate = true;
+    particleMat.uniforms.uThemeAlpha.value = 0.5;
   } else {
     renderer.setClearColor(0x000000, 0);
     particleMat.blending = THREE.AdditiveBlending;
     particleMat.uniforms.uThemeAlpha.value = 1.0;
-    particleMat.needsUpdate = true;
   }
+  particleMat.needsUpdate = true;
 }
 
-function applyTheme(theme) {
-  currentTheme = theme;
-  if (theme === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-  }
-  localStorage.setItem('horizon-theme', theme);
-  updateSceneTheme(theme);
-  updatePhoneScreenshots(theme);
-  // Reset Turnstile with new theme
-  var turnstileDiv = document.querySelector('.cf-turnstile');
-  if (turnstileDiv) {
-    turnstileDiv.setAttribute('data-theme', theme);
-    if (window.turnstile) turnstile.reset();
-  }
-}
-
-document.getElementById('theme-toggle').addEventListener('click', function() {
-  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-});
-
-// Apply initial screenshot theme
-updatePhoneScreenshots(currentTheme);
-
-// Set initial Turnstile theme
-(function() {
-  var turnstileDiv = document.querySelector('.cf-turnstile');
-  if (turnstileDiv && currentTheme === 'light') {
-    turnstileDiv.setAttribute('data-theme', 'light');
-  }
-})();
-
-// ─── Scroll indicator ───
-(function() {
-  const btn = document.getElementById('scroll-indicator');
-  const waitlist = document.querySelector('.waitlist-section');
-  function checkScroll() {
-    const canScroll = document.documentElement.scrollHeight > window.innerHeight;
-    const waitlistTop = waitlist.getBoundingClientRect().top;
-    const isVisible = waitlistTop > window.innerHeight * 0.8;
-    if (canScroll && isVisible) {
-      btn.classList.add('visible');
-      btn.classList.remove('hidden');
-    } else {
-      btn.classList.add('hidden');
-    }
-  }
-  checkScroll();
-  window.addEventListener('scroll', checkScroll, { passive: true });
-  window.addEventListener('resize', checkScroll);
-})();
-
-// ─── Phone slideshow ───
-(function() {
-  const imgs = document.querySelectorAll('#phone-slideshow img');
-  let current = 0;
-  setInterval(() => {
-    imgs[current].classList.remove('active');
-    current = (current + 1) % imgs.length;
-    imgs[current].classList.add('active');
-  }, 4000);
-})();
-
-// ─── Platform selection ───
-function selectPlatform(card) {
-  document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
-  card.classList.add('selected');
-  var joinBtn = document.querySelector('.email-form button');
-  if (joinBtn) joinBtn.disabled = false;
-}
-
-function updateJoinButton() {
-  var joinBtn = document.querySelector('.email-form button');
-  var hasSelection = document.querySelector('.platform-card.selected');
-  if (joinBtn) joinBtn.disabled = !hasSelection;
-}
-
-// ─── Auto-detect mobile OS ───
-(function() {
-  var ua = navigator.userAgent || navigator.platform || '';
-  var detected = null;
-  if (/android/i.test(ua)) detected = 'android';
-  else if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) detected = 'ios';
-  if (detected) {
-    var card = document.querySelector('.platform-card[data-platform="' + detected + '"]');
-    if (card) selectPlatform(card);
-  }
-  updateJoinButton();
-})();
-
-let turnstileToken = null;
-
-function onTurnstileSuccess(token) {
-  turnstileToken = token;
-}
-
-function onTurnstileExpired() {
-  turnstileToken = null;
-}
-
-const WORKER_URL = 'https://waitlist.horizongroup.dev';
-
-async function handleSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('button');
-  if (!turnstileToken) {
-    btn.textContent = 'Complete check';
-    setTimeout(() => { btn.textContent = 'Join'; }, 2000);
-    return;
-  }
-  btn.textContent = 'Joining...';
-  btn.disabled = true;
-  const selectedCard = document.querySelector('.platform-card.selected');
-  if (!selectedCard) {
-    btn.textContent = 'Select platform';
-    btn.disabled = true;
-    setTimeout(() => { btn.textContent = 'Join'; updateJoinButton(); }, 2000);
-    return;
-  }
-  const email = e.target.querySelector('input').value;
-  const platform = selectedCard.dataset.platform;
-  try {
-    const res = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, platform, token: turnstileToken }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      e.target.querySelector('input').value = '';
-      btn.textContent = 'Added!';
-    } else {
-      btn.textContent = data.error || 'Error';
-    }
-  } catch {
-    btn.textContent = 'Error';
-  }
-  setTimeout(() => { btn.textContent = 'Join'; btn.disabled = false; }, 2000);
-  turnstileToken = null;
-  if (window.turnstile) turnstile.reset();
-}
-
-// ─── Three.js Particle Scene (simplified) ───
-const canvas = document.getElementById('bg-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 50;
-
-const COLORS = [
-  new THREE.Color(0x14B8A6),
-  new THREE.Color(0xFFB703),
-  new THREE.Color(0x00B4D8),
-  new THREE.Color(0x34D399),
-];
-
-const PARTICLE_COUNT = 1000;
-const geo = new THREE.BufferGeometry();
-const positions = new Float32Array(PARTICLE_COUNT * 3);
-const colors = new Float32Array(PARTICLE_COUNT * 3);
-const sizes = new Float32Array(PARTICLE_COUNT);
-const velocities = [];
-
-for (let i = 0; i < PARTICLE_COUNT; i++) {
-  const i3 = i * 3;
-  positions[i3]     = (Math.random() - 0.5) * 120;
-  positions[i3 + 1] = (Math.random() - 0.5) * 80;
-  positions[i3 + 2] = (Math.random() - 0.5) * 60;
-  const col = COLORS[Math.floor(Math.random() * COLORS.length)];
-  colors[i3] = col.r; colors[i3+1] = col.g; colors[i3+2] = col.b;
-  sizes[i] = Math.random() * 2.5 + 0.5;
-  velocities.push({
-    x: (Math.random() - 0.5) * 0.012,
-    y: (Math.random() - 0.5) * 0.012,
-    z: (Math.random() - 0.5) * 0.008,
-    phase: Math.random() * Math.PI * 2,
-    speed: Math.random() * 0.3 + 0.1,
-  });
-}
-
-geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-const particleMat = new THREE.ShaderMaterial({
-  uniforms: { uTime: { value: 0 }, uThemeAlpha: { value: 1.0 } },
-  vertexShader: `
-    attribute float size;
-    varying vec3 vColor;
-    varying float vAlpha;
-    uniform float uTime;
-    void main() {
-      vColor = color;
-      vec3 pos = position;
-      pos.x += sin(uTime * 0.15 + position.y * 0.05) * 1.2;
-      pos.y += cos(uTime * 0.12 + position.x * 0.04) * 0.8;
-      vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
-      float depth = smoothstep(-80.0, 10.0, mvPos.z);
-      vAlpha = depth * 0.6 + 0.1;
-      gl_PointSize = size * (200.0 / -mvPos.z) * (depth * 0.6 + 0.4);
-      gl_Position = projectionMatrix * mvPos;
-    }
-  `,
-  fragmentShader: `
-    varying vec3 vColor;
-    varying float vAlpha;
-    uniform float uThemeAlpha;
-    void main() {
-      float d = length(gl_PointCoord - 0.5);
-      float strength = 1.0 - smoothstep(0.0, 0.5, d);
-      strength = pow(strength, 1.5);
-      float glow = exp(-d * 4.0) * 0.5;
-      gl_FragColor = vec4(vColor, (strength + glow) * vAlpha * uThemeAlpha);
-    }
-  `,
-  transparent: true,
-  depthWrite: false,
-  blending: THREE.AdditiveBlending,
-  vertexColors: true,
-});
-
-const particles = new THREE.Points(geo, particleMat);
-scene.add(particles);
-
-// Apply saved theme to scene
-updateSceneTheme(currentTheme);
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+if (renderer) {
   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-const clock = new THREE.Clock();
-function animate() {
-  requestAnimationFrame(animate);
-  const t = clock.getElapsedTime();
-  particleMat.uniforms.uTime.value = t;
-  const pos = geo.attributes.position.array;
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 50;
+
+  const COLORS = [
+    new THREE.Color(0x14B8A6),
+    new THREE.Color(0xFFB703),
+    new THREE.Color(0x00B4D8),
+    new THREE.Color(0x34D399),
+  ];
+  const COUNT = 900;
+  const geo = new THREE.BufferGeometry();
+  const positions = new Float32Array(COUNT * 3);
+  const colors = new Float32Array(COUNT * 3);
+  const sizes = new Float32Array(COUNT);
+  const vel = [];
+  for (let i = 0; i < COUNT; i++) {
     const i3 = i * 3;
-    const v = velocities[i];
-    pos[i3] += v.x + Math.sin(t * v.speed + v.phase) * 0.006;
-    pos[i3+1] += v.y + Math.cos(t * v.speed + v.phase) * 0.005;
-    pos[i3+2] += v.z;
-    if (pos[i3] > 60) pos[i3] = -60;
-    if (pos[i3] < -60) pos[i3] = 60;
-    if (pos[i3+1] > 40) pos[i3+1] = -40;
-    if (pos[i3+1] < -40) pos[i3+1] = 40;
-    if (pos[i3+2] > 30) pos[i3+2] = -30;
-    if (pos[i3+2] < -30) pos[i3+2] = 30;
+    positions[i3] = (Math.random() - 0.5) * 120;
+    positions[i3 + 1] = (Math.random() - 0.5) * 80;
+    positions[i3 + 2] = (Math.random() - 0.5) * 60;
+    const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+    colors[i3] = c.r; colors[i3 + 1] = c.g; colors[i3 + 2] = c.b;
+    sizes[i] = Math.random() * 2.5 + 0.5;
+    vel.push({
+      x: (Math.random() - 0.5) * 0.012,
+      y: (Math.random() - 0.5) * 0.012,
+      z: (Math.random() - 0.5) * 0.008,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.3 + 0.1,
+    });
   }
-  geo.attributes.position.needsUpdate = true;
-  particles.rotation.y = t * 0.015;
-  particles.rotation.x = Math.sin(t * 0.01) * 0.08;
-  renderer.render(scene, camera);
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  particleMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: { value: 0 }, uThemeAlpha: { value: 1.0 } },
+    vertexShader: `
+      attribute float size;
+      varying vec3 vColor;
+      varying float vAlpha;
+      uniform float uTime;
+      void main() {
+        vColor = color;
+        vec3 pos = position;
+        pos.x += sin(uTime * 0.15 + position.y * 0.05) * 1.2;
+        pos.y += cos(uTime * 0.12 + position.x * 0.04) * 0.8;
+        vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+        float depth = smoothstep(-80.0, 10.0, mvPos.z);
+        vAlpha = depth * 0.6 + 0.1;
+        gl_PointSize = size * (200.0 / -mvPos.z) * (depth * 0.6 + 0.4);
+        gl_Position = projectionMatrix * mvPos;
+      }
+    `,
+    fragmentShader: `
+      varying vec3 vColor;
+      varying float vAlpha;
+      uniform float uThemeAlpha;
+      void main() {
+        float d = length(gl_PointCoord - 0.5);
+        float strength = 1.0 - smoothstep(0.0, 0.5, d);
+        strength = pow(strength, 1.5);
+        float glow = exp(-d * 4.0) * 0.5;
+        gl_FragColor = vec4(vColor, (strength + glow) * vAlpha * uThemeAlpha);
+      }
+    `,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexColors: true,
+  });
+
+  const particles = new THREE.Points(geo, particleMat);
+  scene.add(particles);
+  updateSceneTheme(currentTheme);
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Pointer drift + scroll-linked rotation
+  let mx = 0, my = 0;
+  if (!REDUCED) {
+    window.addEventListener('pointermove', e => {
+      mx = (e.clientX / window.innerWidth - 0.5) * 2;
+      my = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+  }
+
+  const clock = new THREE.Clock();
+  let running = true;
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden;
+    if (running) animate();
+  });
+
+  function animate() {
+    if (!running) return;
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    particleMat.uniforms.uTime.value = t;
+    const pos = geo.attributes.position.array;
+    for (let i = 0; i < COUNT; i++) {
+      const i3 = i * 3;
+      const v = vel[i];
+      pos[i3] += v.x + Math.sin(t * v.speed + v.phase) * 0.006;
+      pos[i3 + 1] += v.y + Math.cos(t * v.speed + v.phase) * 0.005;
+      pos[i3 + 2] += v.z;
+      if (pos[i3] > 60) pos[i3] = -60; if (pos[i3] < -60) pos[i3] = 60;
+      if (pos[i3 + 1] > 40) pos[i3 + 1] = -40; if (pos[i3 + 1] < -40) pos[i3 + 1] = 40;
+      if (pos[i3 + 2] > 30) pos[i3 + 2] = -30; if (pos[i3 + 2] < -30) pos[i3 + 2] = 30;
+    }
+    geo.attributes.position.needsUpdate = true;
+    const scrollFactor = window.scrollY * 0.00008;
+    particles.rotation.y = t * 0.015 + scrollFactor + mx * 0.04;
+    particles.rotation.x = Math.sin(t * 0.01) * 0.08 + my * 0.03;
+    if (REDUCED) { particles.rotation.y = 0; particles.rotation.x = 0; }
+    renderer.render(scene, camera);
+  }
+  if (REDUCED) {
+    // Single static frame — no animation loop.
+    particleMat.uniforms.uTime.value = 1.0;
+    renderer.render(scene, camera);
+  } else {
+    animate();
+  }
 }
-animate();
 </script>
 </body>
 </html>
