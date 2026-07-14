@@ -270,7 +270,7 @@
 
   @media (max-width: 860px) {
     .nav-links { display: none; }
-    .nav-cta { margin-left: auto; }
+    .nav-links + .nav-cta { margin-left: auto; }
   }
 
   /* ── Theme toggle ───────────────────────────────────────── */
@@ -325,6 +325,8 @@
     box-shadow: 0 8px 28px rgba(20,184,166,0.18);
   }
   .store-btn svg { width: 26px; height: 26px; flex: none; }
+  .store-btn .sb-ico--play { width: 23px; height: 23px; }
+  .store-btn .sb-ico--apple { width: 24px; height: 26px; }
   .store-btn .sb-text { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
   .store-btn .sb-hint { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); }
   .store-btn .sb-name { font-weight: 700; font-size: 0.98rem; letter-spacing: -0.01em; }
@@ -492,6 +494,8 @@
     .hero-copy { display: flex; flex-direction: column; align-items: center; }
     .hero-sub { max-width: 52ch; }
     .phone { width: min(64vw, 260px); }
+    .hero .store-buttons { flex-direction: column; align-items: center; width: 100%; }
+    .hero .store-btn { width: 190px; justify-content: flex-start; }
   }
 
   /* ── Trust ticker ───────────────────────────────────────── */
@@ -533,7 +537,7 @@
     line-height: 1.08;
     margin-bottom: 1rem;
   }
-  .sec-head p { color: var(--text-secondary); line-height: 1.7; font-size: 1.15rem; }
+  .sec-head p:not(.ledger-line) { color: var(--text-secondary); line-height: 1.7; font-size: 1.15rem; }
 
   /* Scroll reveal */
   .rv { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--d, 0s); }
@@ -640,6 +644,32 @@
     .tab-stage { order: -1; }
     .tab-stage .phone { width: min(58vw, 250px); }
   }
+  .tab-btn .lbl-short { display: none; }
+  @media (max-width: 640px) {
+    .tabs-bar {
+      width: calc(100vw - 24px);
+      max-width: none;
+      margin-left: calc(50% - 50vw + 12px);
+      margin-right: calc(50% - 50vw + 12px);
+      border: none;
+      border-radius: 14px;
+      background: var(--glass-strong);
+      justify-content: stretch;
+      gap: 0.15rem;
+      padding: 0.32rem;
+    }
+    .tab-btn {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0.62rem 0.25rem;
+      font-size: 0.8rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .tab-btn:active { transform: scale(0.96); }
+    .tab-btn .lbl-full { display: none; }
+    .tab-btn .lbl-short { display: inline; }
+  }
 
   /* ── Quick entry ────────────────────────────────────────── */
   .entry-band { background: color-mix(in srgb, var(--bg-secondary) 62%, transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); backdrop-filter: blur(6px); }
@@ -702,10 +732,13 @@
   }
   .parsed-chip.show { opacity: 1; transform: none; }
   .parsed-chip svg { width: 17px; height: 17px; color: var(--brand-light); flex: none; }
-  .parsed-chip .p-amt { font-weight: 500; }
+  .parsed-chip .p-body { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .parsed-chip .p-main { display: flex; align-items: baseline; gap: 0.5rem; min-width: 0; }
+  .parsed-chip .p-amt { font-weight: 500; white-space: nowrap; flex: none; }
   .parsed-chip .p-amt.neg { color: var(--coral); }
   .parsed-chip .p-amt.pos { color: var(--green); }
-  .parsed-chip .p-cat { color: var(--text-tertiary); font-size: 0.76rem; }
+  .parsed-chip .p-desc { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .parsed-chip .p-cat { color: var(--text-tertiary); font-size: 0.76rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .entry-modes {
     display: flex;
     flex-wrap: wrap;
@@ -1022,10 +1055,10 @@
   </nav>
   <div class="nav-cta">
     <a class="store-mini" href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584" aria-label="Download Reach on the App Store">
-      <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <svg class="sb-ico sb-ico--apple" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
     </a>
     <a class="store-mini" href="https://play.google.com/store/apps/details?id=com.horizongroup.reach" aria-label="Get Reach on Google Play">
-      <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+      <svg class="sb-ico sb-ico--play" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
     </a>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark mode">
       <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
@@ -1043,12 +1076,12 @@
       <p class="hero-sub rv" style="--d:.12s">Budget, goals, debts and what's coming next, from entries logged in <strong>three seconds</strong>. <strong>No bank logins.</strong> Your data stays on your phone.</p>
       <div class="store-buttons rv" style="--d:.18s">
         <a class="store-btn store-btn--solid" href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584">
-          <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-          <span class="sb-text"><span class="sb-hint">Download on the</span><span class="sb-name">App Store</span></span>
+          <svg class="sb-ico sb-ico--apple" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <span class="sb-text"><span class="sb-hint">Apple</span><span class="sb-name">App Store</span></span>
         </a>
         <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.horizongroup.reach">
-          <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
-          <span class="sb-text"><span class="sb-hint">Get it on</span><span class="sb-name">Google Play</span></span>
+          <svg class="sb-ico sb-ico--play" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+          <span class="sb-text"><span class="sb-hint">Android</span><span class="sb-name">Google Play</span></span>
         </a>
       </div>
       <p class="hero-footnote rv" style="--d:.24s">free to download · no account required · works offline</p>
@@ -1093,7 +1126,7 @@
 
       <div class="tabs-bar rv" role="tablist" aria-label="Reach features">
         <button class="tab-btn" id="tab-budget" role="tab" aria-selected="true" aria-controls="panel-budget">Budget</button>
-        <button class="tab-btn" id="tab-goals" role="tab" aria-selected="false" aria-controls="panel-goals" tabindex="-1">Savings goals</button>
+        <button class="tab-btn" id="tab-goals" role="tab" aria-selected="false" aria-controls="panel-goals" tabindex="-1"><span class="lbl-full">Savings goals</span><span class="lbl-short">Goals</span></button>
         <button class="tab-btn" id="tab-debt" role="tab" aria-selected="false" aria-controls="panel-debt" tabindex="-1">Debt</button>
         <button class="tab-btn" id="tab-forecast" role="tab" aria-selected="false" aria-controls="panel-forecast" tabindex="-1">Forecast</button>
         <button class="tab-btn" id="tab-insights" role="tab" aria-selected="false" aria-controls="panel-insights" tabindex="-1">Insights</button>
@@ -1182,9 +1215,10 @@
             <div class="fake-input" aria-hidden="true"><span id="type-target"></span><span class="caret"></span></div>
             <div class="parsed-chip" id="parsed-chip" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/></svg>
-              <span class="p-amt neg" id="parsed-amt">−$12.00</span>
-              <span id="parsed-desc">lunch</span>
-              <span class="p-cat" id="parsed-cat">Food &amp; Dining · today</span>
+              <div class="p-body">
+                <div class="p-main"><span class="p-amt neg" id="parsed-amt">−$12.00</span><span class="p-desc" id="parsed-desc">lunch</span></div>
+                <span class="p-cat" id="parsed-cat">Food &amp; Dining · today</span>
+              </div>
             </div>
             <div class="entry-modes" aria-label="Five ways to log: voice, scan, quick text, form, recurring">
               <span class="mode-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path stroke-linecap="round" d="M5 10v1a7 7 0 0014 0v-1M12 18v4"/></svg>Voice</span>
@@ -1323,12 +1357,12 @@
         <p>Log your first expense in three seconds. The CFO in your pocket takes it from there.</p>
         <div class="store-buttons">
           <a class="store-btn" href="https://apps.apple.com/us/app/reach-pocket-cfo/id6761084584">
-            <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-            <span class="sb-text"><span class="sb-hint">Download on the</span><span class="sb-name">App Store</span></span>
+            <svg class="sb-ico sb-ico--apple" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span class="sb-text"><span class="sb-hint">Apple</span><span class="sb-name">App Store</span></span>
           </a>
           <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.horizongroup.reach">
-            <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
-            <span class="sb-text"><span class="sb-hint">Get it on</span><span class="sb-name">Google Play</span></span>
+            <svg class="sb-ico sb-ico--play" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+            <span class="sb-text"><span class="sb-hint">Android</span><span class="sb-name">Google Play</span></span>
           </a>
         </div>
       </div>
