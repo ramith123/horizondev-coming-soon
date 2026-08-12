@@ -7,12 +7,32 @@
   </url>
   <url>
     <loc>https://horizongroup.dev/reach/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://horizongroup.dev/reach/compare/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://horizongroup.dev/reach/guides/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://horizongroup.dev/reach/guides/track-expenses-without-bank-account/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://horizongroup.dev/reach/guides/debt-snowball-vs-avalanche/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://horizongroup.dev/reach/support/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
